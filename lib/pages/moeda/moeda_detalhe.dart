@@ -14,6 +14,19 @@ class MoedaDetalhe extends StatefulWidget {
 class _MoedaDetalheState extends State<MoedaDetalhe> {
   NumberFormat real = NumberFormat.currency(locale: "pt_BR", name: "R\$");
   double quantidade = 0;
+  final _form = GlobalKey<FormState>();
+  final _valor = TextEditingController();
+
+  comprar() {
+    if (_form.currentState!.validate()) {
+      //save on database
+      Navigator.pop(context);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Compra realizada com sucesso")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,16 +67,17 @@ class _MoedaDetalheState extends State<MoedaDetalhe> {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(
-                    "$quantidade ${widget.moeda.sigla}",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.green.shade300,
-                    ),
-                  ),
-                ),
+                child: (quantidade > 0)
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        child: Text(
+                          "$quantidade ${widget.moeda.sigla}",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.green.shade300,
+                          ),
+                        ))
+                    : null,
                 margin: const EdgeInsets.only(bottom: 20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
@@ -72,7 +86,10 @@ class _MoedaDetalheState extends State<MoedaDetalhe> {
               ),
             ),
             Form(
+              key: _form,
               child: TextFormField(
+                controller: _valor,
+                autofocus: true,
                 style: const TextStyle(fontSize: 22),
                 decoration: const InputDecoration(
                   label: Text("Valor"),
@@ -89,13 +106,28 @@ class _MoedaDetalheState extends State<MoedaDetalhe> {
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Informe o valor da compra";
+                  } else if (double.parse(value) < 50) {
+                    return "A compra mínima é R\$ 50,00";
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  setState(() {
+                    quantidade = (value.isEmpty)
+                        ? 0
+                        : double.parse(value) / widget.moeda.preco;
+                  });
+                },
               ),
             ),
             Container(
               alignment: Alignment.bottomCenter,
               margin: const EdgeInsets.only(top: 24),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => comprar(),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
