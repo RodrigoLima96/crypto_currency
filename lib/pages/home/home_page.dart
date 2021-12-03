@@ -1,3 +1,5 @@
+import 'package:crypto_currency/models/moeda.dart';
+import 'package:crypto_currency/pages/moeda/moeda_detalhe.dart';
 import 'package:crypto_currency/repositories/moeda_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +14,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final tabela = MoedasRepository.tabela;
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
+
+  mostrarDetalhe(Moeda moeda) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (_) => MoedaDetalhe(moeda: moeda)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +43,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             trailing: Text(real.format(tabela[i].preco)),
+            onTap: () => mostrarDetalhe(tabela[i]),
           );
         },
         separatorBuilder: (_, __) => const Divider(),
