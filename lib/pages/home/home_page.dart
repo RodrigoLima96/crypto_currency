@@ -15,10 +15,23 @@ class _HomePageState extends State<HomePage> {
   final tabela = MoedasRepository.tabela;
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
   List<Moeda> selecionadas = [];
+  List<Moeda> favoritas = [];
 
   mostrarDetalhe(Moeda moeda) {
     Navigator.push(
         context, MaterialPageRoute(builder: (_) => MoedaDetalhe(moeda: moeda)));
+  }
+
+  saveAll(List<Moeda> moeda) {
+    // ignore: avoid_function_literals_in_foreach_calls
+    moeda.forEach((moeda) {
+      if (!favoritas.any((atual) => atual.sigla == moeda.sigla)) {
+        favoritas.add(moeda);
+      } else {
+        favoritas.remove(moeda);
+      }
+    });
+    limparSelecionadas();
   }
 
   limparSelecionadas() {
@@ -56,16 +69,31 @@ class _HomePageState extends State<HomePage> {
       body: ListView.separated(
         itemBuilder: (BuildContext context, int i) {
           return ListTile(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
             leading: SizedBox(
               child: Image.asset(tabela[i].icone),
               width: 40,
             ),
-            title: Text(
-              tabela[i].nome,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
+            title: Row(
+              children: [
+                Text(
+                  tabela[i].nome,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (favoritas.any((moeda) => moeda.sigla == tabela[i].sigla))
+                  const Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                      size: 15,
+                    ),
+                  )
+              ],
             ),
             trailing: Text(real.format(tabela[i].preco)),
             selected: selecionadas.contains(tabela[i]),
@@ -87,7 +115,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: selecionadas.isNotEmpty
           ? FloatingActionButton.extended(
-              onPressed: () => limparSelecionadas(),
+              onPressed: () => saveAll(selecionadas),
               shape: const StadiumBorder(
                   side: BorderSide(color: Colors.white, width: 2)),
               backgroundColor: Colors.black,
