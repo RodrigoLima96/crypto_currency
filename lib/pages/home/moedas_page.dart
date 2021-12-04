@@ -107,7 +107,10 @@ class _MoedasPageState extends State<MoedasPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: selecionadas.isNotEmpty
           ? FloatingActionButton.extended(
-              onPressed: () => favoritas.saveAll(selecionadas),
+              onPressed: () {
+                favoritas.saveAll(selecionadas);
+                limparSelecionadas();
+              },
               shape: const StadiumBorder(
                   side: BorderSide(color: Colors.white, width: 2)),
               backgroundColor: Colors.black,
