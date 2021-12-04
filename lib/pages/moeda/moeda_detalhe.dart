@@ -1,7 +1,9 @@
+import 'package:crypto_currency/configs/app_settings.dart';
 import 'package:crypto_currency/models/moeda.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class MoedaDetalhe extends StatefulWidget {
   final Moeda moeda;
@@ -12,7 +14,7 @@ class MoedaDetalhe extends StatefulWidget {
 }
 
 class _MoedaDetalheState extends State<MoedaDetalhe> {
-  NumberFormat real = NumberFormat.currency(locale: "pt_BR", name: "R\$");
+  late NumberFormat real;
   double quantidade = 0;
   final _form = GlobalKey<FormState>();
   final _valor = TextEditingController();
@@ -28,8 +30,14 @@ class _MoedaDetalheState extends State<MoedaDetalhe> {
     }
   }
 
+  readNumberFormat() {
+    final loc = context.watch<AppSettings>().locale;
+    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
+  }
+
   @override
   Widget build(BuildContext context) {
+    readNumberFormat();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.moeda.nome),

@@ -1,5 +1,5 @@
-import 'package:crypto_currency/pages/home/favoritas_page.dart';
-import 'package:crypto_currency/pages/home/moedas_page.dart';
+import 'package:crypto_currency/pages/moeda/favoritas_page.dart';
+import 'package:crypto_currency/pages/moeda/moedas_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {

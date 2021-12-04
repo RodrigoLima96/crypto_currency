@@ -38,11 +38,5 @@ class MoedasRepository {
       sigla: 'XRP',
       preco: 23.00,
     ),
-    Moeda(
-      icone: 'assets/images/litecoin.png',
-      nome: 'Litcoin',
-      sigla: 'LTC',
-      preco: 345.00,
-    ),
   ];
 }

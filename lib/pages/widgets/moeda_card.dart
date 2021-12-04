@@ -1,3 +1,4 @@
+import 'package:crypto_currency/configs/app_settings.dart';
 import 'package:crypto_currency/models/moeda.dart';
 import 'package:crypto_currency/pages/moeda/moeda_detalhe.dart';
 import 'package:crypto_currency/repositories/favoritas_repository.dart';
@@ -14,7 +15,7 @@ class MoedaCard extends StatefulWidget {
 }
 
 class _MoedaCardState extends State<MoedaCard> {
-  NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
+  late NumberFormat real;
 
   abrirDetalhes() {
     Navigator.push(
@@ -25,8 +26,14 @@ class _MoedaCardState extends State<MoedaCard> {
     );
   }
 
+  readNumberFormat() {
+    final loc = context.watch<AppSettings>().locale;
+    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
+  }
+
   @override
   Widget build(BuildContext context) {
+    readNumberFormat();
     return Card(
       margin: const EdgeInsets.only(top: 12),
       elevation: 20,
