@@ -1,8 +1,10 @@
 import 'package:crypto_currency/models/moeda.dart';
 import 'package:crypto_currency/pages/moeda/moeda_detalhe.dart';
+import 'package:crypto_currency/repositories/favoritas_repository.dart';
 import 'package:crypto_currency/repositories/moeda_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class MoedasPage extends StatefulWidget {
   const MoedasPage({Key? key}) : super(key: key);
@@ -15,23 +17,11 @@ class _MoedasPageState extends State<MoedasPage> {
   final tabela = MoedasRepository.tabela;
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
   List<Moeda> selecionadas = [];
-  List<Moeda> favoritas = [];
+  late FavoritasRepository favoritas;
 
   mostrarDetalhe(Moeda moeda) {
     Navigator.push(
         context, MaterialPageRoute(builder: (_) => MoedaDetalhe(moeda: moeda)));
-  }
-
-  saveAll(List<Moeda> moeda) {
-    // ignore: avoid_function_literals_in_foreach_calls
-    moeda.forEach((moeda) {
-      if (!favoritas.any((atual) => atual.sigla == moeda.sigla)) {
-        favoritas.add(moeda);
-      } else {
-        favoritas.remove(moeda);
-      }
-    });
-    limparSelecionadas();
   }
 
   limparSelecionadas() {
@@ -64,6 +54,7 @@ class _MoedasPageState extends State<MoedasPage> {
 
   @override
   Widget build(BuildContext context) {
+    favoritas = context.watch<FavoritasRepository>();
     return Scaffold(
       appBar: appBarDinamica(),
       body: ListView.separated(
@@ -84,7 +75,8 @@ class _MoedasPageState extends State<MoedasPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                if (favoritas.any((moeda) => moeda.sigla == tabela[i].sigla))
+                if (favoritas.lista
+                    .any((moeda) => moeda.sigla == tabela[i].sigla))
                   const Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Icon(
@@ -115,7 +107,7 @@ class _MoedasPageState extends State<MoedasPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: selecionadas.isNotEmpty
           ? FloatingActionButton.extended(
-              onPressed: () => saveAll(selecionadas),
+              onPressed: () => favoritas.saveAll(selecionadas),
               shape: const StadiumBorder(
                   side: BorderSide(color: Colors.white, width: 2)),
               backgroundColor: Colors.black,

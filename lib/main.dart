@@ -1,9 +1,22 @@
+import 'package:crypto_currency/configs/hive_config.dart';
 import 'package:crypto_currency/pages/home/home_page.dart';
-import 'package:crypto_currency/pages/home/moedas_page.dart';
+import 'package:crypto_currency/repositories/favoritas_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  //instrução para executar código antes do runApp
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveConfig.start();
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => FavoritasRepository()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

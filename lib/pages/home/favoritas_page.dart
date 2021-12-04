@@ -16,6 +16,9 @@ class _FavoritasPageState extends State<FavoritasPage> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+      ),
     );
   }
 }
