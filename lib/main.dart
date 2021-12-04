@@ -1,4 +1,5 @@
 import 'package:crypto_currency/pages/home/home_page.dart';
+import 'package:crypto_currency/pages/home/moedas_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
