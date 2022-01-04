@@ -34,21 +34,24 @@ class _MoedasPageState extends State<MoedasPage> {
       icon: const Icon(Icons.language_outlined),
       itemBuilder: (context) => [
         PopupMenuItem(
-            child: ListTile(
-          leading: const Icon(Icons.swap_vert),
-          title: Text('Usar $locale'),
-          onTap: () {
-            context.read<AppSettings>().setLocale(locale, name);
-            Navigator.pop(context);
-          },
-        ))
+          child: ListTile(
+            leading: const Icon(Icons.swap_vert),
+            title: Text('Usar $locale'),
+            onTap: () {
+              context.read<AppSettings>().setLocale(locale, name);
+              Navigator.pop(context);
+            },
+          ),
+        )
       ],
     );
   }
 
   mostrarDetalhe(Moeda moeda) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (_) => MoedaDetalhe(moeda: moeda)));
+      context,
+      MaterialPageRoute(builder: (_) => MoedaDetalhe(moeda: moeda)),
+    );
   }
 
   limparSelecionadas() {
@@ -157,7 +160,8 @@ class _MoedasPageState extends State<MoedasPage> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
-              ))
+              ),
+            )
           : null,
     );
   }

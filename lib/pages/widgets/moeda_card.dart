@@ -90,7 +90,7 @@ class _MoedaCardState extends State<MoedaCard> {
                 itemBuilder: (context) => [
                   PopupMenuItem(
                       child: ListTile(
-                    title: const Text("Remover dos favoritos"),
+                    title: const Text("Remover das favoritas"),
                     onTap: () {
                       Navigator.pop(context);
                       Provider.of<FavoritasRepository>(context, listen: false)
