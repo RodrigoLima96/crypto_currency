@@ -22,8 +22,8 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final conta = context.watch<ContaRepository>();
     readNumberFormat();
+    final conta = context.watch<ContaRepository>();
 
     return Scaffold(
       appBar: AppBar(
@@ -62,11 +62,15 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
     valor.text = conta.saldo.toString();
 
     AlertDialog dialog = AlertDialog(
-      title: const Text('Atualizar Saldo'),
+      title: const Text(
+        'Atualizar Saldo',
+        textAlign: TextAlign.center,
+      ),
       content: Form(
         key: form,
         child: TextFormField(
           controller: valor,
+          textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*')),
@@ -78,19 +82,24 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('CANCELAR'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('CANCELAR'),
+            ),
+            TextButton(
+              onPressed: () {
+                if (form.currentState!.validate()) {
+                  conta.setSaldo(double.parse(valor.text));
+                  Navigator.pop(context);
+                }
+              },
+              child: const Text('SALVAR'),
+            )
+          ],
         ),
-        TextButton(
-          onPressed: () {
-            if (form.currentState!.validate()) {
-              conta.setSaldo(double.parse(valor.text));
-              Navigator.pop(context);
-            }
-          },
-          child: const Text('Salvar'),
-        )
       ],
     );
     showDialog(context: context, builder: (context) => dialog);

@@ -1,3 +1,4 @@
+import 'package:crypto_currency/pages/carteira/carteira_page.dart';
 import 'package:crypto_currency/pages/configuracoes/configuracoes_page.dart';
 import 'package:crypto_currency/pages/moeda/favoritas_page.dart';
 import 'package:crypto_currency/pages/moeda/moedas_page.dart';
@@ -34,17 +35,21 @@ class _HomePageState extends State<HomePage> {
         children: const [
           MoedasPage(),
           FavoritasPage(),
+          CarteiraPage(),
           ConfiguracoesPage(),
         ],
         onPageChanged: setPaginaAtual,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: paginaAtual,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Todas'),
           BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favoritas'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Configurações')
+              icon: Icon(Icons.account_balance_wallet), label: 'Carteira'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Configurações'),
         ],
         onTap: (pagina) {
           controller.animateToPage(
