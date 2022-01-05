@@ -1,5 +1,6 @@
 import 'package:crypto_currency/configs/app_settings.dart';
 import 'package:crypto_currency/models/moeda.dart';
+import 'package:crypto_currency/repositories/conta_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -18,10 +19,13 @@ class _MoedaDetalheState extends State<MoedaDetalhe> {
   double quantidade = 0;
   final _form = GlobalKey<FormState>();
   final _valor = TextEditingController();
+  late ContaRepository conta;
 
-  comprar() {
+  comprar() async {
     if (_form.currentState!.validate()) {
       //save on database
+      await conta.comprar(widget.moeda, double.parse(_valor.text));
+
       Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -38,6 +42,8 @@ class _MoedaDetalheState extends State<MoedaDetalhe> {
   @override
   Widget build(BuildContext context) {
     readNumberFormat();
+    conta = Provider.of<ContaRepository>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.moeda.nome),
@@ -119,6 +125,8 @@ class _MoedaDetalheState extends State<MoedaDetalhe> {
                     return "Informe o valor da compra";
                   } else if (double.parse(value) < 50) {
                     return "A compra mínima é R\$ 50,00";
+                  } else if (double.parse(value) >= conta.saldo) {
+                    return "Saldo insuficiente";
                   }
                   return null;
                 },

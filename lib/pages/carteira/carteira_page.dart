@@ -52,6 +52,7 @@ class _CarteiraPageState extends State<CarteiraPage> {
               ),
             ),
             loadGrafico(),
+            loadHistorico(),
           ],
         ),
       ),
@@ -132,23 +133,22 @@ class _CarteiraPageState extends State<CarteiraPage> {
                 aspectRatio: 1,
                 child: PieChart(
                   PieChartData(
-                    sectionsSpace: 5,
-                    centerSpaceRadius: 120,
-                    sections: loadCarteira(),
                     pieTouchData: PieTouchData(
                         touchCallback: (FlTouchEvent event, pieTouchResponse) {
                       setState(() {
                         if (!event.isInterestedForInteractions ||
                             pieTouchResponse == null ||
                             pieTouchResponse.touchedSection == null) {
-                          index = -1;
+                          index + 1;
                           return;
                         }
                         index = pieTouchResponse
                             .touchedSection!.touchedSectionIndex;
-                        setGraficoDados(index);
                       });
                     }),
+                    sectionsSpace: 5,
+                    centerSpaceRadius: 120,
+                    sections: loadCarteira(),
                   ),
                 ),
               ),
@@ -171,5 +171,29 @@ class _CarteiraPageState extends State<CarteiraPage> {
               ),
             ],
           );
+  }
+
+  loadHistorico() {
+    final historico = conta.historico;
+    final date = DateFormat('dd/MM/yyyy - hh:mm');
+    List<Widget> widgets = [];
+    List.generate(
+      historico.length,
+      (i) => {
+        widgets.add(
+          ListTile(
+            title: Text(historico[i].moeda.nome),
+            subtitle: Text(date.format(historico[i].dataOperacao)),
+            trailing: Text(
+              real.format(historico[i].moeda.preco * historico[i].quantidade),
+            ),
+          ),
+        ),
+        widgets.add(const Divider()),
+      },
+    );
+    return Column(
+      children: widgets,
+    );
   }
 }
