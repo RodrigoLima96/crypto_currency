@@ -125,7 +125,7 @@ class _MoedaDetalheState extends State<MoedaDetalhe> {
                     return "Informe o valor da compra";
                   } else if (double.parse(value) < 50) {
                     return "A compra mínima é R\$ 50,00";
-                  } else if (double.parse(value) >= conta.saldo) {
+                  } else if (double.parse(value) > conta.saldo) {
                     return "Saldo insuficiente";
                   }
                   return null;

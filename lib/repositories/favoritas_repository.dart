@@ -9,6 +9,8 @@ class FavoritasRepository extends ChangeNotifier {
 
   late LazyBox box;
 
+  UnmodifiableListView<Moeda> get lista => UnmodifiableListView(_lista);
+
   FavoritasRepository() {
     _startRepository();
   }
@@ -31,8 +33,6 @@ class FavoritasRepository extends ChangeNotifier {
       notifyListeners();
     });
   }
-
-  UnmodifiableListView<Moeda> get lista => UnmodifiableListView(_lista);
 
   saveAll(List<Moeda> moedas) {
     // ignore: avoid_function_literals_in_foreach_calls

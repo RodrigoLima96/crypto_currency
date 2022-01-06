@@ -1,4 +1,5 @@
 import 'package:crypto_currency/configs/app_settings.dart';
+import 'package:crypto_currency/pages/venda.dart/venda_page.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -48,6 +49,28 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                   icon: const Icon(Icons.edit)),
             ),
             const Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Center(
+                  child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const VendaPage()));
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  child: Text(
+                    'Vender',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              )),
+            )
           ],
         ),
       ),
