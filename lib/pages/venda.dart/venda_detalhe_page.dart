@@ -26,14 +26,18 @@ class _VendaDetalhePageState extends State<VendaDetalhePage> {
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
   }
 
-  vender() {
+  vender() async {
     //save on database
 
-    Navigator.pop(context);
+    if (_form.currentState!.validate()) {
+      await conta.vender(widget.moeda.moeda, double.parse(_valor.text));
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Venda Realizada com sucesso')),
-    );
+      Navigator.pop(context);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Venda Realizada com sucesso')),
+      );
+    }
   }
 
   @override
@@ -45,6 +49,8 @@ class _VendaDetalhePageState extends State<VendaDetalhePage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    double total = widget.moeda.moeda.preco * widget.moeda.quantidade;
+    conta = Provider.of<ContaRepository>(context, listen: false);
 
     readNumberFormat();
     return Scaffold(
@@ -120,7 +126,14 @@ class _VendaDetalhePageState extends State<VendaDetalhePage> {
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                validator: (value) {},
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Informe o valor da compra';
+                  } else if (double.parse(value) > total) {
+                    return 'Quantidade insuficiente de ${widget.moeda.moeda.sigla} na carteira';
+                  }
+                  return null;
+                },
                 onChanged: (value) {
                   setState(
                     () {

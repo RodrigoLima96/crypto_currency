@@ -187,6 +187,15 @@ class _CarteiraPageState extends State<CarteiraPage> {
             trailing: Text(
               real.format(historico[i].moeda.preco * historico[i].quantidade),
             ),
+            leading: (historico[i].tipoOperacao == 'compra')
+                ? const Icon(
+                    Icons.arrow_upward,
+                    color: Colors.blue,
+                  )
+                : const Icon(
+                    Icons.arrow_downward,
+                    color: Colors.red,
+                  ),
           ),
         ),
         widgets.add(const Divider()),

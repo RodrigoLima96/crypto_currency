@@ -22,11 +22,12 @@ class _VendaPageState extends State<VendaPage> {
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Consumer<ContaRepository>(builder: (context, lista, child) {
+          padding: const EdgeInsets.all(24),
+          child: Consumer<ContaRepository>(
+            builder: (context, lista, child) {
               return lista.carteira.isEmpty
                   ? const ListTile(
-                      leading: Icon(Icons.wallet_giftcard),
+                      leading: Icon(Icons.account_balance_wallet_outlined),
                       title: Text('Sem moedas na sua carteira'),
                     )
                   : ListView.builder(
@@ -34,7 +35,9 @@ class _VendaPageState extends State<VendaPage> {
                       itemBuilder: (_, moeda) {
                         return MoedaCardVenda(moeda: lista.carteira[moeda]);
                       });
-            })),
+            },
+          ),
+        ),
       ),
     );
   }

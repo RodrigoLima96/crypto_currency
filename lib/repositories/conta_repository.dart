@@ -90,6 +90,46 @@ class ContaRepository extends ChangeNotifier {
     notifyListeners();
   }
 
+  vender(Moeda moeda, double valor) async {
+    db = await DB.instance.database;
+
+    await db.transaction((txn) async {
+      final posicaoMoeda = await txn.query(
+        'carteira',
+        where: 'sigla = ?',
+        whereArgs: [moeda.sigla],
+      );
+
+      final atual = double.parse(posicaoMoeda.first['quantidade'].toString());
+
+      await txn.update(
+        'carteira',
+        {'quantidade': (atual - (valor / moeda.preco)).toString()},
+        where: 'sigla = ?',
+        whereArgs: [moeda.sigla],
+      );
+
+      if (atual - (valor / moeda.preco) == 0) {
+        await txn
+            .delete('carteira', where: 'sigla = ?', whereArgs: [moeda.sigla]);
+      }
+
+      await txn.insert('historico', {
+        'sigla': moeda.sigla,
+        'moeda': moeda.nome,
+        'quantidade': (valor / moeda.preco).toString(),
+        'valor': valor,
+        'tipo_operacao': 'venda',
+        'data_operacao': DateTime.now().millisecondsSinceEpoch
+      });
+
+      await txn.update('conta', {'saldo': saldo + valor});
+    });
+
+    await _initRepository();
+    notifyListeners();
+  }
+
   _getCarteira() async {
     _carteira = [];
     List posicoes = await db.query('carteira');
