@@ -19,7 +19,7 @@ class _VendaPageState extends State<VendaPage> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Padding(
             padding: const EdgeInsets.all(24),
