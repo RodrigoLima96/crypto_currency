@@ -1,6 +1,6 @@
 import 'package:crypto_currency/configs/app_settings.dart';
 import 'package:crypto_currency/models/moeda.dart';
-import 'package:crypto_currency/pages/moeda/moeda_detalhe.dart';
+import 'package:crypto_currency/pages/moeda/transacao_moeda_page.dart';
 import 'package:crypto_currency/repositories/favoritas_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,11 +17,11 @@ class MoedaCard extends StatefulWidget {
 class _MoedaCardState extends State<MoedaCard> {
   late NumberFormat real;
 
-  abrirDetalhes() {
+  transacoes() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => MoedaDetalhe(moeda: widget.moeda),
+        builder: (_) => TransacaoPage(moeda: widget.moeda),
       ),
     );
   }
@@ -38,7 +38,7 @@ class _MoedaCardState extends State<MoedaCard> {
       margin: const EdgeInsets.only(top: 12),
       elevation: 20,
       child: InkWell(
-        onTap: () => abrirDetalhes(),
+        onTap: () => transacoes(),
         child: Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
           child: Row(

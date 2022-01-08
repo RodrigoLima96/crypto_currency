@@ -33,7 +33,8 @@ class _FavoritasPageState extends State<FavoritasPage> {
                     itemCount: favoritas.lista.length,
                     itemBuilder: (_, moeda) {
                       return MoedaCard(moeda: favoritas.lista[moeda]);
-                    });
+                    },
+                  );
           },
         ),
       ),
