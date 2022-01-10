@@ -150,7 +150,8 @@ class ContaRepository extends ChangeNotifier {
 
   _getHistorico() async {
     _historico = [];
-    List operacoes = await db.query('historico');
+    List operacoes = await db
+        .rawQuery('SELECT * FROM historico ORDER BY data_operacao DESC');
     // ignore: avoid_function_literals_in_foreach_calls
     operacoes.forEach((operacao) {
       Moeda moeda = MoedasRepository.tabela.firstWhere(

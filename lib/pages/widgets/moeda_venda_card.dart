@@ -1,6 +1,6 @@
 import 'package:crypto_currency/configs/app_settings.dart';
 import 'package:crypto_currency/models/posicao.dart';
-import 'package:crypto_currency/pages/venda.dart/venda_detalhe_page.dart';
+import 'package:crypto_currency/pages/transacoes/venda_detalhe_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +34,7 @@ class _MoedaCardVendaState extends State<MoedaCardVenda> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => VendaDetalhePage(moeda: widget.moeda),
+                builder: (context) => VendaPage(moeda: widget.moeda),
               ));
         },
         child: Padding(

@@ -6,15 +6,15 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class VendaDetalhePage extends StatefulWidget {
+class VendaPage extends StatefulWidget {
   final Posicao moeda;
-  const VendaDetalhePage({Key? key, required this.moeda}) : super(key: key);
+  const VendaPage({Key? key, required this.moeda}) : super(key: key);
 
   @override
-  _VendaDetalhePageState createState() => _VendaDetalhePageState();
+  _VendaPageState createState() => _VendaPageState();
 }
 
-class _VendaDetalhePageState extends State<VendaDetalhePage> {
+class _VendaPageState extends State<VendaPage> {
   late NumberFormat real;
   double quantidade = 0;
   final _form = GlobalKey<FormState>();

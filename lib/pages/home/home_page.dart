@@ -1,5 +1,6 @@
 import 'package:crypto_currency/pages/carteira/carteira_page.dart';
 import 'package:crypto_currency/pages/configuracoes/configuracoes_page.dart';
+import 'package:crypto_currency/pages/historico/historico_page.dart';
 import 'package:crypto_currency/pages/moeda/favoritas_page.dart';
 import 'package:crypto_currency/pages/moeda/moedas_page.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class _HomePageState extends State<HomePage> {
           MoedasPage(),
           FavoritasPage(),
           CarteiraPage(),
+          HistoricoPage(),
           ConfiguracoesPage(),
         ],
         onPageChanged: setPaginaAtual,
@@ -48,6 +50,8 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favoritas'),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_balance_wallet), label: 'Carteira'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.article_rounded), label: 'Histórico'),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), label: 'Configurações'),
         ],

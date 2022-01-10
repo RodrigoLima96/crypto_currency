@@ -1,6 +1,6 @@
 import 'package:crypto_currency/configs/app_settings.dart';
 import 'package:crypto_currency/models/moeda.dart';
-import 'package:crypto_currency/pages/moeda/transacao_moeda_page.dart';
+import 'package:crypto_currency/pages/transacoes/compra_detalhe_page.dart';
 import 'package:crypto_currency/repositories/favoritas_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +21,7 @@ class _MoedaCardState extends State<MoedaCard> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => TransacaoPage(moeda: widget.moeda),
+        builder: (_) => CompraPage(moeda: widget.moeda),
       ),
     );
   }
