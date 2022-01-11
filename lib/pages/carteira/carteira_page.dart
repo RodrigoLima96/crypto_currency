@@ -1,4 +1,4 @@
-import 'package:crypto_currency/pages/widgets/moeda_venda_card.dart';
+import 'package:crypto_currency/pages/widgets/moeda_carteira_card.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class _CarteiraPageState extends State<CarteiraPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transações'),
+        title: const Text('Carteira'),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
@@ -33,8 +33,10 @@ class _CarteiraPageState extends State<CarteiraPage> {
                   : ListView.builder(
                       itemCount: lista.carteira.length,
                       itemBuilder: (_, moeda) {
-                        return MoedaCardVenda(moeda: lista.carteira[moeda]);
-                      });
+                        return MoedaCarteiraCard(
+                            carteira: lista.carteira[moeda]);
+                      },
+                    );
             },
           ),
         ),

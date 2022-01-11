@@ -165,7 +165,10 @@ class _HistoricoPageState extends State<HistoricoPage> {
                     real.format(
                       graficoValor,
                     ),
-                    style: const TextStyle(fontSize: 28),
+                    style: const TextStyle(
+                      fontSize: 28,
+                      letterSpacing: -1,
+                    ),
                   ),
                 ],
               ),

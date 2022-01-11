@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class MoedaCardVenda extends StatefulWidget {
-  final Posicao moeda;
-  const MoedaCardVenda({Key? key, required this.moeda}) : super(key: key);
+class MoedaCarteiraCard extends StatefulWidget {
+  final Posicao carteira;
+  const MoedaCarteiraCard({Key? key, required this.carteira}) : super(key: key);
 
   @override
-  _MoedaCardVendaState createState() => _MoedaCardVendaState();
+  _MoedaCarteiraCardState createState() => _MoedaCarteiraCardState();
 }
 
-class _MoedaCardVendaState extends State<MoedaCardVenda> {
+class _MoedaCarteiraCardState extends State<MoedaCarteiraCard> {
   late NumberFormat real;
 
   readNumberFormat() {
@@ -23,7 +23,7 @@ class _MoedaCardVendaState extends State<MoedaCardVenda> {
 
   @override
   Widget build(BuildContext context) {
-    double total = widget.moeda.moeda.preco * widget.moeda.quantidade;
+    double total = widget.carteira.moeda.preco * widget.carteira.quantidade;
 
     readNumberFormat();
     return Card(
@@ -32,17 +32,18 @@ class _MoedaCardVendaState extends State<MoedaCardVenda> {
       child: InkWell(
         onTap: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => VendaPage(moeda: widget.moeda),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => VendaPage(moeda: widget.carteira),
+            ),
+          );
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
           child: Row(
             children: [
               Image.asset(
-                widget.moeda.moeda.icone,
+                widget.carteira.moeda.icone,
                 height: 40,
               ),
               Expanded(
@@ -52,14 +53,14 @@ class _MoedaCardVendaState extends State<MoedaCardVenda> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.moeda.moeda.nome,
+                        widget.carteira.moeda.nome,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       Text(
-                        widget.moeda.quantidade.toStringAsFixed(3),
+                        widget.carteira.quantidade.toStringAsFixed(3),
                         style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,

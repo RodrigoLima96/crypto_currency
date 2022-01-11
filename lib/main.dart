@@ -1,8 +1,10 @@
 import 'package:crypto_currency/configs/app_settings.dart';
 import 'package:crypto_currency/configs/hive_config.dart';
-import 'package:crypto_currency/pages/home/home_page.dart';
+import 'package:crypto_currency/pages/widgets/auth_check.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
 import 'package:crypto_currency/repositories/favoritas_repository.dart';
+import 'package:crypto_currency/services/auth_service.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,10 +12,12 @@ void main() async {
   //instrução para executar código antes do runApp
   WidgetsFlutterBinding.ensureInitialized();
   await HiveConfig.start();
+  await Firebase.initializeApp();
 
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => ContaRepository()),
         ChangeNotifierProvider(create: (context) => AppSettings()),
         ChangeNotifierProvider(create: (context) => FavoritasRepository()),
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
-      home: const HomePage(),
+      home: const AuthCheck(),
     );
   }
 }
