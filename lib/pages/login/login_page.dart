@@ -1,4 +1,7 @@
+import 'package:crypto_currency/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,6 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   late String titulo;
   late String actionButton;
   late String toggleButton;
+
+  bool loading = false;
 
   @override
   void initState() {
@@ -36,6 +41,28 @@ class _LoginPageState extends State<LoginPage> {
         toggleButton = 'Voltar ao Login';
       }
     });
+  }
+
+  login() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().login(email.text, senha.text);
+    } on AuthException catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
+
+  registrar() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().registrar(email.text, senha.text);
+    } on AuthException catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
+    }
   }
 
   @override
@@ -93,6 +120,76 @@ class _LoginPageState extends State<LoginPage> {
                       return null;
                     },
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        if (isLogin) {
+                          login();
+                        } else {
+                          registrar();
+                        }
+                      }
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: (loading)
+                          ? [
+                              const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ]
+                          : [
+                              const Icon(Icons.check),
+                              Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Text(
+                                  actionButton,
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                              )
+                            ],
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => setFormAction(!isLogin),
+                  child: Text(toggleButton),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: SvgPicture.asset(
+                              'assets/icons/google.svg',
+                              height: 40,
+                              color: Colors.red.shade300,
+                            ),
+                          ),
+                          const Padding(
+                            padding:
+                                EdgeInsets.only(top: 5, bottom: 5, left: 10),
+                            child: Text(
+                              'Logar com o Google',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          )
+                        ],
+                      )),
                 )
               ],
             ),

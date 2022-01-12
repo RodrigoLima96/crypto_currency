@@ -1,5 +1,6 @@
 import 'package:crypto_currency/configs/app_settings.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
+import 'package:crypto_currency/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -48,6 +49,27 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                   icon: const Icon(Icons.edit)),
             ),
             const Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: OutlinedButton(
+                onPressed: () => context.read<AuthService>().logout(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        'Sair',
+                        style: TextStyle(
+                          color: Colors.red.shade400,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
