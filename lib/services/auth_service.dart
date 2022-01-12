@@ -65,4 +65,25 @@ class AuthService extends ChangeNotifier {
   logout() async {
     await _auth.signOut();
   }
+
+  Future googleLogin() async {
+    try {
+      final googleUser = await googleSignIn.signIn();
+      if (googleUser == null) return;
+      _googleUsuario = googleUser;
+
+      final googleAuth = await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      notifyListeners();
+    } catch (e) {
+      throw 'Não foi possível realizar o login com o google. Tente novamente';
+    }
+  }
 }

@@ -65,6 +65,15 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  loginWithGoogle() async {
+    try {
+      await context.read<AuthService>().googleLogin();
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,7 +177,9 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.all(24),
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        loginWithGoogle();
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
