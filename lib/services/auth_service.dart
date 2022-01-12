@@ -63,13 +63,19 @@ class AuthService extends ChangeNotifier {
   }
 
   logout() async {
-    await _auth.signOut();
+    try {
+      await _auth.signOut();
+      await googleSignIn.disconnect();
+    } catch (e) {
+      return 'google account not found';
+    }
   }
 
   Future googleLogin() async {
     try {
       final googleUser = await googleSignIn.signIn();
       if (googleUser == null) return;
+
       _googleUsuario = googleUser;
 
       final googleAuth = await googleUser.authentication;

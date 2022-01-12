@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   late String toggleButton;
 
   bool loading = false;
+  bool loadingGoogle = false;
 
   @override
   void initState() {
@@ -66,12 +67,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   loginWithGoogle() async {
+    setState(() => loadingGoogle = true);
+
     try {
       await context.read<AuthService>().googleLogin();
     } catch (e) {
+      setState(() => loadingGoogle = false);
+
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
+    setState(() => loadingGoogle = false);
   }
 
   @override
@@ -182,24 +188,38 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: SvgPicture.asset(
-                              'assets/icons/google.svg',
-                              height: 40,
-                              color: Colors.red.shade300,
-                            ),
-                          ),
-                          const Padding(
-                            padding:
-                                EdgeInsets.only(top: 5, bottom: 5, left: 10),
-                            child: Text(
-                              'Logar com o Google',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          )
-                        ],
+                        children: (loadingGoogle)
+                            ? [
+                                const Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
+                              ]
+                            : [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: SvgPicture.asset(
+                                    'assets/icons/google.svg',
+                                    height: 40,
+                                    color: Colors.red.shade300,
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 5, bottom: 5, left: 10),
+                                  child: Text(
+                                    'Logar com o Google',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                )
+                              ],
                       )),
                 )
               ],
