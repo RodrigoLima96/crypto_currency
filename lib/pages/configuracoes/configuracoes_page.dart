@@ -33,48 +33,50 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          children: [
-            ListTile(
-              title: const Text('Saldo'),
-              subtitle: Text(
-                real.format(conta.saldo),
-                style: TextStyle(fontSize: 25, color: Colors.green.shade300),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              ListTile(
+                title: const Text('Saldo'),
+                subtitle: Text(
+                  real.format(conta.saldo),
+                  style: TextStyle(fontSize: 25, color: Colors.green.shade300),
+                ),
+                trailing: IconButton(
+                    onPressed: () {
+                      updateSaldo();
+                    },
+                    icon: const Icon(Icons.edit)),
               ),
-              trailing: IconButton(
-                  onPressed: () {
-                    updateSaldo();
-                  },
-                  icon: const Icon(Icons.edit)),
-            ),
-            const Divider(),
-            const UserInfo(),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.3),
-              child: OutlinedButton(
-                onPressed: () => context.read<AuthService>().logout(),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Text(
-                        'Sair',
-                        style: TextStyle(
-                          color: Colors.red.shade400,
-                          fontSize: 18,
+              const Divider(),
+              const UserInfo(),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.3),
+                child: OutlinedButton(
+                  onPressed: () => context.read<AuthService>().logout(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          'Sair',
+                          style: TextStyle(
+                            color: Colors.red.shade400,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

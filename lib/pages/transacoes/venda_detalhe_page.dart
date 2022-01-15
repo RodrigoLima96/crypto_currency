@@ -64,7 +64,7 @@ class _VendaPageState extends State<VendaPage> {
         child: Column(
           children: [
             Center(
-              child: Image.asset(
+              child: Image.network(
                 widget.moeda.moeda.icone,
                 height: 60,
               ),

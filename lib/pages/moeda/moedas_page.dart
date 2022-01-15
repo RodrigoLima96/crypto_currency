@@ -55,6 +55,14 @@ class _MoedasPageState extends State<MoedasPage> {
     );
   }
 
+  atualizaPrecos() async {
+    await moedas.checkPrecos();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Preços atualizados com sucesso")),
+    );
+  }
+
   limparSelecionadas() {
     setState(() {
       selecionadas = [];
@@ -94,52 +102,55 @@ class _MoedasPageState extends State<MoedasPage> {
     tabela = moedas.tabela;
     return Scaffold(
       appBar: appBarDinamica(),
-      body: ListView.separated(
-        itemBuilder: (BuildContext context, int i) {
-          return ListTile(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20))),
-            leading: SizedBox(
-              child: Image.network(tabela[i].icone),
-              width: 40,
-            ),
-            title: Row(
-              children: [
-                Text(
-                  tabela[i].nome,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                if (favoritas.lista
-                    .any((moeda) => moeda.sigla == tabela[i].sigla))
-                  const Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                      size: 15,
+      body: RefreshIndicator(
+        onRefresh: () => atualizaPrecos(),
+        child: ListView.separated(
+          itemBuilder: (BuildContext context, int i) {
+            return ListTile(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              leading: SizedBox(
+                child: Image.network(tabela[i].icone),
+                width: 40,
+              ),
+              title: Row(
+                children: [
+                  Text(
+                    tabela[i].nome,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
                     ),
-                  )
-              ],
-            ),
-            trailing: Text(real.format(tabela[i].preco)),
-            selected: selecionadas.contains(tabela[i]),
-            selectedTileColor: Colors.black,
-            onLongPress: () {
-              setState(() {
-                (selecionadas.contains(tabela[i])
-                    ? selecionadas.remove(tabela[i])
-                    : selecionadas.add(tabela[i]));
-              });
-            },
-            onTap: () => mostrarDetalhe(tabela[i]),
-          );
-        },
-        separatorBuilder: (_, __) => const Divider(),
-        itemCount: tabela.length,
-        padding: const EdgeInsets.all(20),
+                  ),
+                  if (favoritas.lista
+                      .any((moeda) => moeda.sigla == tabela[i].sigla))
+                    const Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 15,
+                      ),
+                    )
+                ],
+              ),
+              trailing: Text(real.format(tabela[i].preco)),
+              selected: selecionadas.contains(tabela[i]),
+              selectedTileColor: Colors.black,
+              onLongPress: () {
+                setState(() {
+                  (selecionadas.contains(tabela[i])
+                      ? selecionadas.remove(tabela[i])
+                      : selecionadas.add(tabela[i]));
+                });
+              },
+              onTap: () => mostrarDetalhe(tabela[i]),
+            );
+          },
+          separatorBuilder: (_, __) => const Divider(),
+          itemCount: tabela.length,
+          padding: const EdgeInsets.all(20),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: selecionadas.isNotEmpty
