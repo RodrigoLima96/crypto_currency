@@ -73,11 +73,9 @@ class _LoginPageState extends State<LoginPage> {
       await context.read<AuthService>().googleLogin();
     } catch (e) {
       setState(() => loadingGoogle = false);
-
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
-    setState(() => loadingGoogle = false);
   }
 
   @override
