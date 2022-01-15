@@ -60,9 +60,9 @@ class _CompraPageState extends State<CompraPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    child: Image.asset(widget.moeda.icone),
-                    width: 60,
+                  Image.network(
+                    widget.moeda.icone,
+                    scale: 2.5,
                   ),
                   Container(
                     width: 40,

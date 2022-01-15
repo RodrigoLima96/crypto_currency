@@ -15,10 +15,11 @@ class MoedasPage extends StatefulWidget {
 }
 
 class _MoedasPageState extends State<MoedasPage> {
-  final tabela = MoedasRepository.tabela;
+  late List<Moeda> tabela;
   late NumberFormat real;
   late Map<String, String> loc;
   List<Moeda> selecionadas = [];
+  late MoedasRepository moedas;
   late FavoritasRepository favoritas;
 
   readNumberFormat() {
@@ -88,7 +89,9 @@ class _MoedasPageState extends State<MoedasPage> {
   @override
   Widget build(BuildContext context) {
     readNumberFormat();
+    moedas = context.watch<MoedasRepository>();
     favoritas = context.watch<FavoritasRepository>();
+    tabela = moedas.tabela;
     return Scaffold(
       appBar: appBarDinamica(),
       body: ListView.separated(
@@ -97,7 +100,7 @@ class _MoedasPageState extends State<MoedasPage> {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             leading: SizedBox(
-              child: Image.asset(tabela[i].icone),
+              child: Image.network(tabela[i].icone),
               width: 40,
             ),
             title: Row(

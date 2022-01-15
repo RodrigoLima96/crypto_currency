@@ -12,12 +12,13 @@ class FavoritasRepository extends ChangeNotifier {
   final List<Moeda> _lista = [];
   late FirebaseFirestore db;
   late AuthService auth;
+  MoedasRepository moedas;
 
   UnmodifiableListView<Moeda> get lista => UnmodifiableListView(_lista);
 
   //late LazyBox box;
 
-  FavoritasRepository({required this.auth}) {
+  FavoritasRepository({required this.auth, required this.moedas}) {
     _startRepository();
   }
 
@@ -43,7 +44,7 @@ class FavoritasRepository extends ChangeNotifier {
 
       // ignore: avoid_function_literals_in_foreach_calls
       snapshot.docs.forEach((doc) {
-        Moeda moeda = MoedasRepository.tabela
+        Moeda moeda = moedas.tabela
             .firstWhere((moeda) => moeda.sigla == doc.get('sigla'));
         _lista.add(moeda);
         notifyListeners();

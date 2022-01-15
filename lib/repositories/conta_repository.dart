@@ -11,12 +11,13 @@ class ContaRepository extends ChangeNotifier {
   List<Posicao> _carteira = [];
   List<Historico> _historico = [];
   double _saldo = 0;
+  MoedasRepository moedas;
 
   get saldo => _saldo;
   List<Posicao> get carteira => _carteira;
   List<Historico> get historico => _historico;
 
-  ContaRepository() {
+  ContaRepository({required this.moedas}) {
     _initRepository();
   }
 
@@ -135,7 +136,7 @@ class ContaRepository extends ChangeNotifier {
     List posicoes = await db.query('carteira');
     // ignore: avoid_function_literals_in_foreach_calls
     posicoes.forEach((posicao) {
-      Moeda moeda = MoedasRepository.tabela.firstWhere(
+      Moeda moeda = moedas.tabela.firstWhere(
         (m) => m.sigla == posicao['sigla'],
       );
       _carteira.add(
@@ -154,7 +155,7 @@ class ContaRepository extends ChangeNotifier {
         .rawQuery('SELECT * FROM historico ORDER BY data_operacao DESC');
     // ignore: avoid_function_literals_in_foreach_calls
     operacoes.forEach((operacao) {
-      Moeda moeda = MoedasRepository.tabela.firstWhere(
+      Moeda moeda = moedas.tabela.firstWhere(
         (m) => m.sigla == operacao['sigla'],
       );
       _historico.add(
