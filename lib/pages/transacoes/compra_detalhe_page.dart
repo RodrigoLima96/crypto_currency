@@ -1,5 +1,6 @@
 import 'package:crypto_currency/configs/app_settings.dart';
 import 'package:crypto_currency/models/moeda.dart';
+import 'package:crypto_currency/pages/widgets/grafico_historico.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +21,17 @@ class _CompraPageState extends State<CompraPage> {
   final _form = GlobalKey<FormState>();
   final _valor = TextEditingController();
   late ContaRepository conta;
+
+  Widget grafico = Container();
+  bool graficoLoaded = false;
+
+  getGrafico() {
+    if (!graficoLoaded) {
+      grafico = GraficoHistorico(moeda: widget.moeda);
+      graficoLoaded = true;
+    }
+    return grafico;
+  }
 
   comprar() async {
     if (_form.currentState!.validate()) {
@@ -78,6 +90,7 @@ class _CompraPageState extends State<CompraPage> {
                 ],
               ),
             ),
+            getGrafico(),
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Container(
