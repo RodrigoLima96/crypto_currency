@@ -62,10 +62,10 @@ class MoedasRepository extends ChangeNotifier {
       _tabela.forEach((atual) {
         // ignore: avoid_function_literals_in_foreach_calls
         moedas.forEach((novo) {
-          if (atual.baseId == novo['baseId']) {
-            final moeda = novo['prices'];
-            final preco = novo['latest_price'];
-            final timestamp = DateTime.parse(preco['timestamp']);
+          if (atual.baseId == novo['id']) {
+            final moeda = novo;
+            final preco = moeda['latest_price'];
+            final timestamp = DateTime.parse(novo['latest_price']['timestamp']);
 
             batch.update(
               'moedas',
@@ -77,8 +77,7 @@ class MoedasRepository extends ChangeNotifier {
                 'mudancaSemana': preco['percent_change']['week'].toString(),
                 'mudancaMes': preco['percent_change']['month'].toString(),
                 'mudancaAno': preco['percent_change']['year'].toString(),
-                'mudancaPeriodoTotal':
-                    preco['percent_change']['all'].toString(),
+                'mudancaPeriodoTotal': preco['percent_change']['all'].toString()
               },
               where: 'baseId = ?',
               whereArgs: [atual.baseId],
@@ -86,6 +85,13 @@ class MoedasRepository extends ChangeNotifier {
           }
         });
       });
+
+      // List teste1 = await db.query('moedas');
+
+      // for (var i = 0; i < teste1.length; i++) {
+      //   print(teste1[i]['sigla']);
+      //   print(teste1[i]['preco']);
+      // }
 
       await batch.commit(noResult: true);
       await _readMoedasTable();
@@ -151,7 +157,7 @@ class MoedasRepository extends ChangeNotifier {
             'mudancaSemana': preco['percent_change']['week'].toString(),
             'mudancaMes': preco['percent_change']['month'].toString(),
             'mudancaAno': preco['percent_change']['year'].toString(),
-            'mudancaPeriodoTotal': preco['percent_change']['all'].toString(),
+            'mudancaPeriodoTotal': preco['percent_change']['all'].toString()
           });
         });
 
