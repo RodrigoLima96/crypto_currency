@@ -1,6 +1,6 @@
 import 'package:crypto_currency/pages/home/home_page.dart';
-import 'package:crypto_currency/pages/login/login_page.dart';
-import 'package:crypto_currency/services/auth_service.dart';
+import 'package:crypto_currency/src/modules/auth/pages/login/login_page.dart';
+import 'package:crypto_currency/src/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

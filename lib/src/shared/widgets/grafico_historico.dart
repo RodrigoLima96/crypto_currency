@@ -1,6 +1,6 @@
 import 'package:crypto_currency/configs/app_settings.dart';
-import 'package:crypto_currency/models/moeda.dart';
 import 'package:crypto_currency/repositories/moeda_repository.dart';
+import 'package:crypto_currency/src/models/moeda.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

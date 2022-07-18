@@ -1,5 +1,5 @@
-import 'package:crypto_currency/pages/widgets/moeda_card.dart';
 import 'package:crypto_currency/repositories/favoritas_repository.dart';
+import 'package:crypto_currency/src/shared/widgets/moeda_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

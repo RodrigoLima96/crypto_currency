@@ -1,8 +1,8 @@
 import 'package:crypto_currency/database/db.dart';
-import 'package:crypto_currency/models/historico.dart';
-import 'package:crypto_currency/models/moeda.dart';
-import 'package:crypto_currency/models/posicao.dart';
 import 'package:crypto_currency/repositories/moeda_repository.dart';
+import 'package:crypto_currency/src/models/historico.dart';
+import 'package:crypto_currency/src/models/moeda.dart';
+import 'package:crypto_currency/src/models/posicao.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 

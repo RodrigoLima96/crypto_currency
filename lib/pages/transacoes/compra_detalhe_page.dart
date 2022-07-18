@@ -1,7 +1,7 @@
 import 'package:crypto_currency/configs/app_settings.dart';
-import 'package:crypto_currency/models/moeda.dart';
-import 'package:crypto_currency/pages/widgets/grafico_historico.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
+import 'package:crypto_currency/src/models/moeda.dart';
+import 'package:crypto_currency/src/shared/widgets/grafico_historico.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';

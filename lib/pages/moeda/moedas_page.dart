@@ -1,8 +1,8 @@
 import 'package:crypto_currency/configs/app_settings.dart';
-import 'package:crypto_currency/models/moeda.dart';
 import 'package:crypto_currency/pages/transacoes/compra_detalhe_page.dart';
 import 'package:crypto_currency/repositories/favoritas_repository.dart';
 import 'package:crypto_currency/repositories/moeda_repository.dart';
+import 'package:crypto_currency/src/models/moeda.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -131,7 +131,7 @@ class _MoedasPageState extends State<MoedasPage> {
                         color: Colors.amber,
                         size: 15,
                       ),
-                    )
+                    ),
                 ],
               ),
               trailing: Text(real.format(tabela[i].preco)),

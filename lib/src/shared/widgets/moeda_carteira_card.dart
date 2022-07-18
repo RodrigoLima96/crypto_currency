@@ -1,6 +1,6 @@
 import 'package:crypto_currency/configs/app_settings.dart';
-import 'package:crypto_currency/models/posicao.dart';
 import 'package:crypto_currency/pages/transacoes/venda_detalhe_page.dart';
+import 'package:crypto_currency/src/models/posicao.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

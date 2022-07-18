@@ -1,9 +1,9 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_currency/database/db_firestore.dart';
-import 'package:crypto_currency/models/moeda.dart';
 import 'package:crypto_currency/repositories/moeda_repository.dart';
-import 'package:crypto_currency/services/auth_service.dart';
+import 'package:crypto_currency/src/models/moeda.dart';
+import 'package:crypto_currency/src/services/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 //import 'package:hive/hive.dart';
 //import 'package:crypto_currency/adapters/moeda_hive_adapter.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:crypto_currency/database/db.dart';
-import 'package:crypto_currency/models/moeda.dart';
+import 'package:crypto_currency/src/models/moeda.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:http/http.dart' as http;
@@ -85,13 +85,6 @@ class MoedasRepository extends ChangeNotifier {
           }
         });
       });
-
-      // List teste1 = await db.query('moedas');
-
-      // for (var i = 0; i < teste1.length; i++) {
-      //   print(teste1[i]['sigla']);
-      //   print(teste1[i]['preco']);
-      // }
 
       await batch.commit(noResult: true);
       await _readMoedasTable();

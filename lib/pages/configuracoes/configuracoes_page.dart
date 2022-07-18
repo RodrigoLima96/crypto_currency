@@ -1,7 +1,7 @@
 import 'package:crypto_currency/configs/app_settings.dart';
-import 'package:crypto_currency/pages/widgets/user_google_info.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
-import 'package:crypto_currency/services/auth_service.dart';
+import 'package:crypto_currency/src/services/auth_service.dart';
+import 'package:crypto_currency/src/shared/widgets/user_google_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
