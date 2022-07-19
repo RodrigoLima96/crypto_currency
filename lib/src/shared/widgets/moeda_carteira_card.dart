@@ -1,4 +1,4 @@
-import 'package:crypto_currency/configs/app_settings.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_settings_controller.dart';
 import 'package:crypto_currency/pages/transacoes/venda_detalhe_page.dart';
 import 'package:crypto_currency/src/models/posicao.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class _MoedaCarteiraCardState extends State<MoedaCarteiraCard> {
   late NumberFormat real;
 
   readNumberFormat() {
-    final loc = context.watch<AppSettings>().locale;
+    final loc = context.watch<CryptoSettingsController>().locale;
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
   }
 

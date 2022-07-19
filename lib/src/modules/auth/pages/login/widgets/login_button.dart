@@ -4,10 +4,14 @@ import 'package:provider/provider.dart';
 
 class LoginButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
 
   const LoginButton({
     Key? key,
     required this.formKey,
+    required this.emailController,
+    required this.passwordController,
   }) : super(key: key);
 
   @override
@@ -21,15 +25,21 @@ class LoginButton extends StatelessWidget {
         onPressed: () {
           if (formKey.currentState!.validate()) {
             if (loginController.isLogin) {
-              loginController.login();
+              loginController.login(
+                email: emailController.text,
+                password: passwordController.text,
+              );
             } else {
-              loginController.signUp();
+              loginController.signUp(
+                email: emailController.text,
+                password: passwordController.text,
+              );
             }
           }
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: (loginController.loading)
+          children: (loginController.state == LoginState.loading)
               ? [
                   const Padding(
                     padding: EdgeInsets.all(16),

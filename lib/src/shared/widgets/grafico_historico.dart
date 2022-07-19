@@ -1,13 +1,13 @@
-import 'package:crypto_currency/configs/app_settings.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_settings_controller.dart';
 import 'package:crypto_currency/repositories/moeda_repository.dart';
-import 'package:crypto_currency/src/models/moeda.dart';
+import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class GraficoHistorico extends StatefulWidget {
-  final Moeda moeda;
+  final Crypto moeda;
   const GraficoHistorico({Key? key, required this.moeda}) : super(key: key);
 
   @override
@@ -148,7 +148,7 @@ class _GraficoHistoricoState extends State<GraficoHistorico> {
   @override
   Widget build(BuildContext context) {
     repository = context.read<MoedasRepository>();
-    loc = context.read<AppSettings>().locale;
+    loc = context.read<CryptoSettingsController>().locale;
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
     setDados();
 

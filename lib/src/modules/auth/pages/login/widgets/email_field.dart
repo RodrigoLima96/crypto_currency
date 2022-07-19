@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 
 class EmailField extends StatelessWidget {
+  final TextEditingController emailController;
+  final FormFieldValidator<String> validator;
+
   const EmailField({
     Key? key,
-    required TextEditingController emailController,
-  })  : _emailController = emailController,
-        super(key: key);
-
-  final TextEditingController _emailController;
+    required this.emailController,
+    required this.validator,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _emailController,
+      validator: validator,
+      controller: emailController,
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
         labelText: 'Email',
       ),
       keyboardType: TextInputType.emailAddress,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Informe o email';
-        }
-        return null;
-      },
     );
   }
 }

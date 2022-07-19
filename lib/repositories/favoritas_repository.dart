@@ -2,23 +2,21 @@ import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_currency/database/db_firestore.dart';
 import 'package:crypto_currency/repositories/moeda_repository.dart';
-import 'package:crypto_currency/src/models/moeda.dart';
-import 'package:crypto_currency/src/services/auth_service.dart';
+import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:flutter/cupertino.dart';
 //import 'package:hive/hive.dart';
 //import 'package:crypto_currency/adapters/moeda_hive_adapter.dart';
 
 class FavoritasRepository extends ChangeNotifier {
-  final List<Moeda> _lista = [];
+  final List<Crypto> _lista = [];
   late FirebaseFirestore db;
-  late AuthService auth;
   MoedasRepository moedas;
 
-  UnmodifiableListView<Moeda> get lista => UnmodifiableListView(_lista);
+  UnmodifiableListView<Crypto> get lista => UnmodifiableListView(_lista);
 
   //late LazyBox box;
 
-  FavoritasRepository({required this.auth, required this.moedas}) {
+  FavoritasRepository({required this.moedas}) {
     _startRepository();
   }
 
@@ -38,13 +36,14 @@ class FavoritasRepository extends ChangeNotifier {
    } */
 
   _readFavoritas() async {
-    if (auth.usuario != null && _lista.isEmpty) {
-      final snapshot =
-          await db.collection('usuarios/${auth.usuario!.uid}/favoritas').get();
+    if (_lista.isEmpty) {
+      final snapshot = await db
+          .collection('usuarios/beqoWt3n09all8XNDe8BMjOg2Mr1/favoritas')
+          .get();
 
       // ignore: avoid_function_literals_in_foreach_calls
       snapshot.docs.forEach((doc) {
-        Moeda moeda = moedas.tabela
+        Crypto moeda = moedas.tabela
             .firstWhere((moeda) => moeda.sigla == doc.get('sigla'));
         _lista.add(moeda);
         notifyListeners();
@@ -58,14 +57,14 @@ class FavoritasRepository extends ChangeNotifier {
     });*/
   }
 
-  saveAll(List<Moeda> moedas) {
+  saveAll(List<Crypto> moedas) {
     // ignore: avoid_function_literals_in_foreach_calls
     moedas.forEach((moeda) async {
       if (!_lista.any((atual) => atual.sigla == moeda.sigla)) {
         _lista.add(moeda);
         //box.put(moeda.sigla, moeda);
         await db
-            .collection('usuarios/${auth.usuario!.uid}/favoritas')
+            .collection('usuarios/beqoWt3n09all8XNDe8BMjOg2Mr1/favoritas')
             .doc(moeda.sigla)
             .set({
           'moeda': moeda.nome,
@@ -78,9 +77,9 @@ class FavoritasRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  remove(Moeda moeda) async {
+  remove(Crypto moeda) async {
     await db
-        .collection('usuarios/${auth.usuario!.uid}/favoritas')
+        .collection('usuarios/beqoWt3n09all8XNDe8BMjOg2Mr1/favoritas')
         .doc(moeda.sigla)
         .delete();
     _lista.remove(moeda);

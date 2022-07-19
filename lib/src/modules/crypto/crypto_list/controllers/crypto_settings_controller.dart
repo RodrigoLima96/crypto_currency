@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-class AppSettings extends ChangeNotifier {
+class CryptoSettingsController extends ChangeNotifier {
   late Box box;
   Map<String, String> locale = {
     'locale': 'pt_BR',
     'name': 'R\$',
   };
 
-  AppSettings() {
+  CryptoSettingsController() {
     _startSettings();
   }
 
@@ -33,9 +33,9 @@ class AppSettings extends ChangeNotifier {
     notifyListeners();
   }
 
-  setLocale(String local, String nome) async {
-    await box.put('local', local);
-    await box.put('name', nome);
+  setLocale(String locale, String name) async {
+    await box.put('local', locale);
+    await box.put('name', name);
     await _readLocale();
   }
 }

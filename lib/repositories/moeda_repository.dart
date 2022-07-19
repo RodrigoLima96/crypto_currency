@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:crypto_currency/database/db.dart';
-import 'package:crypto_currency/src/models/moeda.dart';
+import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:http/http.dart' as http;
 
 class MoedasRepository extends ChangeNotifier {
-  List<Moeda> _tabela = [];
+  List<Crypto> _tabela = [];
   late Timer intervalo;
 
-  List<Moeda> get tabela => _tabela;
+  List<Crypto> get tabela => _tabela;
 
   MoedasRepository() {
     _setupMoedasTable();
@@ -19,7 +19,7 @@ class MoedasRepository extends ChangeNotifier {
     _refreshPrecos();
   }
 
-  getHistoricoMoeda(Moeda moeda) async {
+  getHistoricoMoeda(Crypto moeda) async {
     final response = await http.get(
       Uri.parse(
         'https://api.coinbase.com/v2/assets/prices/${moeda.baseId}?base=BRL',
@@ -96,7 +96,7 @@ class MoedasRepository extends ChangeNotifier {
     List resultados = await db.query('moedas');
 
     _tabela = resultados.map((row) {
-      return Moeda(
+      return Crypto(
         baseId: row['baseId'],
         icone: row['icone'],
         nome: row['nome'],

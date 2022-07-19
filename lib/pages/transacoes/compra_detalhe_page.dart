@@ -1,6 +1,6 @@
-import 'package:crypto_currency/configs/app_settings.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_settings_controller.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
-import 'package:crypto_currency/src/models/moeda.dart';
+import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:crypto_currency/src/shared/widgets/grafico_historico.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class CompraPage extends StatefulWidget {
-  final Moeda moeda;
+  final Crypto moeda;
   const CompraPage({Key? key, required this.moeda}) : super(key: key);
 
   @override
@@ -47,7 +47,7 @@ class _CompraPageState extends State<CompraPage> {
   }
 
   readNumberFormat() {
-    final loc = context.watch<AppSettings>().locale;
+    final loc = context.watch<CryptoSettingsController>().locale;
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
   }
 

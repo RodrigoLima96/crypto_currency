@@ -1,59 +1,107 @@
-import 'package:flutter/cupertino.dart';
+import 'package:crypto_currency/src/models/user.dart' as model;
+import 'package:crypto_currency/src/services/auth/auth_service.dart';
+import 'package:crypto_currency/src/services/firestore/firestore_service.dart';
+import 'package:flutter/material.dart';
+
+enum LoginState { idle, loading, loadingGoogle, success, error }
 
 class LoginController extends ChangeNotifier {
   bool isLogin = true;
   late String tittle;
   late String actionButton;
   late String toggleButton;
-
-  bool loading = false;
   bool loadingGoogle = false;
+  var state = LoginState.idle;
+  String status = 'error';
 
-  LoginController() {
+  final AuthService _authService;
+  final FirestoreService _firestoreService;
+
+  LoginController(
+    this._authService,
+    this._firestoreService,
+  ) {
     setFormAction(true);
   }
 
   setFormAction(bool action) {
     isLogin = action;
     if (isLogin) {
-      tittle = 'Bem vindo';
+      tittle = 'Welcome';
       actionButton = 'Login';
-      toggleButton = 'Ainda não tem conta? Cadastre-se agora';
+      toggleButton = 'Don\'t have an account yet? SingUp';
     } else {
-      tittle = 'Crie sua conta';
-      actionButton = 'Cadastrar';
-      toggleButton = 'Voltar ao Login';
+      tittle = 'SignUp';
+      actionButton = 'SignUp';
+      toggleButton = 'Login';
     }
     notifyListeners();
   }
 
-  login() async {
-    loading = true;
+  login({
+    required String email,
+    required String password,
+  }) async {
+    state = LoginState.loading;
     notifyListeners();
     try {
-      // await context.read<AuthService>().login(email.text, senha.text);
+      await _authService.login(email, password);
+      status = 'success';
+      state = LoginState.success;
+      notifyListeners();
     } catch (e) {
-      print(e.toString());
+      state = LoginState.error;
+      notifyListeners();
     }
   }
 
-  signUp() async {
-    loading = true;
+  signUp({
+    required String email,
+    required String password,
+  }) async {
+    state = LoginState.loading;
     notifyListeners();
+
     try {
-      // await context.read<AuthService>().registrar(email.text, senha.text);
+      var credential = await _authService.singUp(email, password);
+      model.User user = model.User(
+        uid: credential.user!.uid,
+        email: email,
+        name: '',
+      );
+      await _firestoreService.signUpUser(user.uid, user.toMap());
+      status = 'success';
+
+      state = LoginState.success;
+      notifyListeners();
     } catch (e) {
-      print(e.toString());
+      state = LoginState.error;
+      notifyListeners();
     }
   }
 
   loginWithGoogle() async {
-    loadingGoogle = true;
+    state = LoginState.loadingGoogle;
     notifyListeners();
     try {
-      // await context.read<AuthService>().googleLogin();
+      var credential = await _authService.googleLogin();
+
+      if (credential != null) {
+        model.User user = model.User(
+          email: credential.user!.email!,
+          uid: credential.user!.uid,
+          name: credential.user!.displayName!,
+          photoUrl: credential.user!.photoURL ?? '',
+        );
+        await _firestoreService.signUpUser(user.uid, user.toMap());
+        state = LoginState.success;
+        notifyListeners();
+      }
+      state = LoginState.idle;
+      notifyListeners();
     } catch (e) {
-      print(e.toString());
+      state = LoginState.error;
+      notifyListeners();
     }
   }
 }

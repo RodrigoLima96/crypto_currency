@@ -1,13 +1,13 @@
-import 'package:crypto_currency/configs/app_settings.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_settings_controller.dart';
 import 'package:crypto_currency/pages/transacoes/compra_detalhe_page.dart';
 import 'package:crypto_currency/repositories/favoritas_repository.dart';
-import 'package:crypto_currency/src/models/moeda.dart';
+import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class MoedaCard extends StatefulWidget {
-  final Moeda moeda;
+  final Crypto moeda;
   const MoedaCard({Key? key, required this.moeda}) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class _MoedaCardState extends State<MoedaCard> {
   }
 
   readNumberFormat() {
-    final loc = context.watch<AppSettings>().locale;
+    final loc = context.watch<CryptoSettingsController>().locale;
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
   }
 

@@ -1,7 +1,7 @@
-import 'moeda.dart';
+import 'crypto.dart';
 
 class Posicao {
-  Moeda moeda;
+  Crypto moeda;
   double quantidade;
 
   Posicao({required this.moeda, required this.quantidade});

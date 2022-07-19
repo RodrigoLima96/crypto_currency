@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
 
 class PasswordField extends StatelessWidget {
+  final TextEditingController passwordController;
+  final FormFieldValidator<String> validator;
+
   const PasswordField({
     Key? key,
-    required TextEditingController passwordController,
-  })  : _passwordController = passwordController,
-        super(key: key);
-
-  final TextEditingController _passwordController;
+    required this.passwordController,
+    required this.validator,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _passwordController,
+      validator: validator,
+      controller: passwordController,
       obscureText: true,
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
-        labelText: 'Senha',
+        labelText: 'Password',
       ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Informe a senha';
-        } else if (value.length < 6) {
-          return 'A senha deve conter no mínimo 6 caracteres';
-        }
-        return null;
-      },
     );
   }
 }

@@ -1,9 +1,9 @@
-import 'moeda.dart';
+import 'crypto.dart';
 
 class Historico {
   DateTime dataOperacao;
   String tipoOperacao;
-  Moeda moeda;
+  Crypto moeda;
   double valor;
   double quantidade;
 

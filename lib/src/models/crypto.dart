@@ -1,4 +1,4 @@
-class Moeda {
+class Crypto {
   String baseId;
   String icone;
   String nome;
@@ -12,7 +12,7 @@ class Moeda {
   double mudancaAno;
   double mudancaPeriodoTotal;
 
-  Moeda({
+  Crypto({
     required this.baseId,
     required this.icone,
     required this.nome,

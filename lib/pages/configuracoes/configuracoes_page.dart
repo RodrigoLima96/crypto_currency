@@ -1,6 +1,6 @@
-import 'package:crypto_currency/configs/app_settings.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_settings_controller.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
-import 'package:crypto_currency/src/services/auth_service.dart';
+import 'package:crypto_currency/src/services/auth/auth_service.dart';
 import 'package:crypto_currency/src/shared/widgets/user_google_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +18,7 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
   late NumberFormat real;
 
   readNumberFormat() {
-    final loc = context.read<AppSettings>().locale;
+    final loc = context.read<CryptoSettingsController>().locale;
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
   }
 

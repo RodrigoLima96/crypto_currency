@@ -1,4 +1,4 @@
-import 'package:crypto_currency/configs/app_settings.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_settings_controller.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
 import 'package:crypto_currency/src/models/posicao.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class _VendaPageState extends State<VendaPage> {
   late ContaRepository conta;
 
   readNumberFormat() {
-    final loc = context.watch<AppSettings>().locale;
+    final loc = context.watch<CryptoSettingsController>().locale;
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
   }
 

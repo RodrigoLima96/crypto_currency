@@ -1,7 +1,7 @@
 import 'package:crypto_currency/database/db.dart';
 import 'package:crypto_currency/repositories/moeda_repository.dart';
 import 'package:crypto_currency/src/models/historico.dart';
-import 'package:crypto_currency/src/models/moeda.dart';
+import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:crypto_currency/src/models/posicao.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
@@ -42,7 +42,7 @@ class ContaRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  comprar(Moeda moeda, double valor) async {
+  comprar(Crypto moeda, double valor) async {
     db = await DB.instance.database;
 
     await db.transaction((txn) async {
@@ -91,7 +91,7 @@ class ContaRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  vender(Moeda moeda, double valor) async {
+  vender(Crypto moeda, double valor) async {
     db = await DB.instance.database;
 
     await db.transaction((txn) async {
@@ -136,7 +136,7 @@ class ContaRepository extends ChangeNotifier {
     List posicoes = await db.query('carteira');
     // ignore: avoid_function_literals_in_foreach_calls
     posicoes.forEach((posicao) {
-      Moeda moeda = moedas.tabela.firstWhere(
+      Crypto moeda = moedas.tabela.firstWhere(
         (m) => m.sigla == posicao['sigla'],
       );
       _carteira.add(
@@ -155,7 +155,7 @@ class ContaRepository extends ChangeNotifier {
         .rawQuery('SELECT * FROM historico ORDER BY data_operacao DESC');
     // ignore: avoid_function_literals_in_foreach_calls
     operacoes.forEach((operacao) {
-      Moeda moeda = moedas.tabela.firstWhere(
+      Crypto moeda = moedas.tabela.firstWhere(
         (m) => m.sigla == operacao['sigla'],
       );
       _historico.add(

@@ -1,4 +1,4 @@
-import 'package:crypto_currency/configs/app_settings.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_settings_controller.dart';
 import 'package:crypto_currency/repositories/conta_repository.dart';
 import 'package:crypto_currency/src/models/posicao.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -26,7 +26,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
   @override
   Widget build(BuildContext context) {
     conta = context.watch<ContaRepository>();
-    final loc = context.watch<AppSettings>().locale;
+    final loc = context.watch<CryptoSettingsController>().locale;
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
     setTotalCarteira();
 

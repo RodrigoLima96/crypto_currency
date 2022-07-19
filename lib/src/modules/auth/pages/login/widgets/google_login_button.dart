@@ -18,7 +18,7 @@ class GoogleLoginButton extends StatelessWidget {
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: (controller.loadingGoogle)
+          children: (controller.state == LoginState.loadingGoogle)
               ? [
                   const Padding(
                     padding: EdgeInsets.all(16),
@@ -43,7 +43,7 @@ class GoogleLoginButton extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(top: 5, bottom: 5, left: 10),
                     child: Text(
-                      'Logar com o Google',
+                      'SignUp with Google',
                       style: TextStyle(fontSize: 16),
                     ),
                   )

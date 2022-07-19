@@ -1,29 +1,29 @@
-import 'package:crypto_currency/configs/app_settings.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_settings_controller.dart';
 import 'package:crypto_currency/pages/transacoes/compra_detalhe_page.dart';
 import 'package:crypto_currency/repositories/favoritas_repository.dart';
 import 'package:crypto_currency/repositories/moeda_repository.dart';
-import 'package:crypto_currency/src/models/moeda.dart';
+import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class MoedasPage extends StatefulWidget {
-  const MoedasPage({Key? key}) : super(key: key);
+class CryptoListPage2 extends StatefulWidget {
+  const CryptoListPage2({Key? key}) : super(key: key);
 
   @override
-  _MoedasPageState createState() => _MoedasPageState();
+  _CryptoListPage2State createState() => _CryptoListPage2State();
 }
 
-class _MoedasPageState extends State<MoedasPage> {
-  late List<Moeda> tabela;
+class _CryptoListPage2State extends State<CryptoListPage2> {
+  late List<Crypto> tabela;
   late NumberFormat real;
   late Map<String, String> loc;
-  List<Moeda> selecionadas = [];
+  List<Crypto> selecionadas = [];
   late MoedasRepository moedas;
   late FavoritasRepository favoritas;
 
   readNumberFormat() {
-    loc = context.watch<AppSettings>().locale;
+    loc = context.watch<CryptoSettingsController>().locale;
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
   }
 
@@ -39,7 +39,7 @@ class _MoedasPageState extends State<MoedasPage> {
             leading: const Icon(Icons.swap_vert),
             title: Text('Usar $locale'),
             onTap: () {
-              context.read<AppSettings>().setLocale(locale, name);
+              context.read<CryptoSettingsController>().setLocale(locale, name);
               Navigator.pop(context);
             },
           ),
@@ -48,7 +48,7 @@ class _MoedasPageState extends State<MoedasPage> {
     );
   }
 
-  mostrarDetalhe(Moeda moeda) {
+  mostrarDetalhe(Crypto moeda) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => CompraPage(moeda: moeda)),
