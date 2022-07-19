@@ -1,5 +1,5 @@
-import 'package:crypto_currency/database/db.dart';
-import 'package:crypto_currency/repositories/moeda_repository.dart';
+import 'package:crypto_currency/src/services/sqLite/sqlite_service.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_controller.dart';
 import 'package:crypto_currency/src/models/historico.dart';
 import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:crypto_currency/src/models/posicao.dart';
@@ -28,14 +28,14 @@ class ContaRepository extends ChangeNotifier {
   }
 
   _getSaldo() async {
-    db = await DB.instance.database;
+    db = await SqLiteService.instance.database;
     List conta = await db.query('conta', limit: 1);
     _saldo = conta.first['saldo'];
     notifyListeners();
   }
 
   setSaldo(double valor) async {
-    db = await DB.instance.database;
+    db = await SqLiteService.instance.database;
     db.update('conta', {'saldo': valor});
 
     _saldo = valor;
@@ -43,22 +43,22 @@ class ContaRepository extends ChangeNotifier {
   }
 
   comprar(Crypto moeda, double valor) async {
-    db = await DB.instance.database;
+    db = await SqLiteService.instance.database;
 
     await db.transaction((txn) async {
       // Verifica se a moeda já foi comprada
       final posicaoMoeda = await txn.query(
         'carteira',
         where: 'sigla = ?',
-        whereArgs: [moeda.sigla],
+        whereArgs: [moeda.symbol],
       );
 
       // Se não tem a moeda em carteira
       if (posicaoMoeda.isEmpty) {
         await txn.insert('carteira', {
-          'sigla': moeda.sigla,
-          'moeda': moeda.nome,
-          'quantidade': (valor / moeda.preco).toString()
+          'sigla': moeda.symbol,
+          'moeda': moeda.name,
+          'quantidade': (valor / moeda.price).toString()
         });
       }
 
@@ -67,17 +67,17 @@ class ContaRepository extends ChangeNotifier {
         final atual = double.parse(posicaoMoeda.first['quantidade'].toString());
         await txn.update(
           'carteira',
-          {'quantidade': ((valor / moeda.preco) + atual).toString()},
+          {'quantidade': ((valor / moeda.price) + atual).toString()},
           where: 'sigla = ?',
-          whereArgs: [moeda.sigla],
+          whereArgs: [moeda.symbol],
         );
       }
 
       // Inserir a compra no histórico
       await txn.insert('historico', {
-        'sigla': moeda.sigla,
-        'moeda': moeda.nome,
-        'quantidade': (valor / moeda.preco).toString(),
+        'sigla': moeda.symbol,
+        'moeda': moeda.name,
+        'quantidade': (valor / moeda.price).toString(),
         'valor': valor,
         'tipo_operacao': 'compra',
         'data_operacao': DateTime.now().millisecondsSinceEpoch
@@ -92,33 +92,33 @@ class ContaRepository extends ChangeNotifier {
   }
 
   vender(Crypto moeda, double valor) async {
-    db = await DB.instance.database;
+    db = await SqLiteService.instance.database;
 
     await db.transaction((txn) async {
       final posicaoMoeda = await txn.query(
         'carteira',
         where: 'sigla = ?',
-        whereArgs: [moeda.sigla],
+        whereArgs: [moeda.symbol],
       );
 
       final atual = double.parse(posicaoMoeda.first['quantidade'].toString());
 
       await txn.update(
         'carteira',
-        {'quantidade': (atual - (valor / moeda.preco)).toString()},
+        {'quantidade': (atual - (valor / moeda.price)).toString()},
         where: 'sigla = ?',
-        whereArgs: [moeda.sigla],
+        whereArgs: [moeda.symbol],
       );
 
-      if (atual - (valor / moeda.preco) == 0) {
+      if (atual - (valor / moeda.price) == 0) {
         await txn
-            .delete('carteira', where: 'sigla = ?', whereArgs: [moeda.sigla]);
+            .delete('carteira', where: 'sigla = ?', whereArgs: [moeda.symbol]);
       }
 
       await txn.insert('historico', {
-        'sigla': moeda.sigla,
-        'moeda': moeda.nome,
-        'quantidade': (valor / moeda.preco).toString(),
+        'sigla': moeda.symbol,
+        'moeda': moeda.name,
+        'quantidade': (valor / moeda.price).toString(),
         'valor': valor,
         'tipo_operacao': 'venda',
         'data_operacao': DateTime.now().millisecondsSinceEpoch
@@ -136,8 +136,8 @@ class ContaRepository extends ChangeNotifier {
     List posicoes = await db.query('carteira');
     // ignore: avoid_function_literals_in_foreach_calls
     posicoes.forEach((posicao) {
-      Crypto moeda = moedas.tabela.firstWhere(
-        (m) => m.sigla == posicao['sigla'],
+      Crypto moeda = moedas.table.firstWhere(
+        (m) => m.symbol == posicao['sigla'],
       );
       _carteira.add(
         Posicao(
@@ -155,8 +155,8 @@ class ContaRepository extends ChangeNotifier {
         .rawQuery('SELECT * FROM historico ORDER BY data_operacao DESC');
     // ignore: avoid_function_literals_in_foreach_calls
     operacoes.forEach((operacao) {
-      Crypto moeda = moedas.tabela.firstWhere(
-        (m) => m.sigla == operacao['sigla'],
+      Crypto moeda = moedas.table.firstWhere(
+        (m) => m.symbol == operacao['sigla'],
       );
       _historico.add(
         Historico(

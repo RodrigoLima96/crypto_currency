@@ -49,13 +49,13 @@ class _VendaPageState extends State<VendaPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    double total = widget.moeda.moeda.preco * widget.moeda.quantidade;
+    double total = widget.moeda.moeda.price * widget.moeda.quantidade;
     conta = Provider.of<ContaRepository>(context, listen: false);
 
     readNumberFormat();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vender ${widget.moeda.moeda.nome.toString()}'),
+        title: Text('Vender ${widget.moeda.moeda.name.toString()}'),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
@@ -65,7 +65,7 @@ class _VendaPageState extends State<VendaPage> {
           children: [
             Center(
               child: Image.network(
-                widget.moeda.moeda.icone,
+                widget.moeda.moeda.icon,
                 height: 60,
               ),
             ),
@@ -98,7 +98,7 @@ class _VendaPageState extends State<VendaPage> {
             const Padding(padding: EdgeInsets.only(bottom: 5)),
             Text(
               real.format(
-                (widget.moeda.quantidade * widget.moeda.moeda.preco),
+                (widget.moeda.quantidade * widget.moeda.moeda.price),
               ),
               style: const TextStyle(
                 fontSize: 25,
@@ -130,7 +130,7 @@ class _VendaPageState extends State<VendaPage> {
                   if (value!.isEmpty) {
                     return 'Informe o valor da compra';
                   } else if (double.parse(value) > total) {
-                    return 'Quantidade insuficiente de ${widget.moeda.moeda.sigla} na carteira';
+                    return 'Quantidade insuficiente de ${widget.moeda.moeda.symbol} na carteira';
                   }
                   return null;
                 },
@@ -139,7 +139,7 @@ class _VendaPageState extends State<VendaPage> {
                     () {
                       quantidade = (value.isEmpty)
                           ? widget.moeda.quantidade
-                          : (double.parse(value) / widget.moeda.moeda.preco);
+                          : (double.parse(value) / widget.moeda.moeda.price);
                     },
                   );
                 },

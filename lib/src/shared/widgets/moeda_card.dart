@@ -44,7 +44,7 @@ class _MoedaCardState extends State<MoedaCard> {
           child: Row(
             children: [
               Image.network(
-                widget.moeda.icone,
+                widget.moeda.icon,
                 height: 40,
               ),
               Expanded(
@@ -54,13 +54,13 @@ class _MoedaCardState extends State<MoedaCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.moeda.nome,
+                        widget.moeda.name,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(widget.moeda.sigla,
+                      Text(widget.moeda.symbol,
                           style: const TextStyle(
                             fontSize: 13,
                           )),
@@ -77,7 +77,7 @@ class _MoedaCardState extends State<MoedaCard> {
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Text(
-                  real.format(widget.moeda.preco),
+                  real.format(widget.moeda.price),
                   style: const TextStyle(
                     fontSize: 16,
                     letterSpacing: -1,

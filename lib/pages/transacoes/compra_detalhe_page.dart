@@ -58,7 +58,7 @@ class _CompraPageState extends State<CompraPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.moeda.nome),
+        title: Text(widget.moeda.name),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
@@ -73,14 +73,14 @@ class _CompraPageState extends State<CompraPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.network(
-                    widget.moeda.icone,
+                    widget.moeda.icon,
                     scale: 2.5,
                   ),
                   Container(
                     width: 40,
                   ),
                   Text(
-                    real.format(widget.moeda.preco),
+                    real.format(widget.moeda.price),
                     style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -98,7 +98,7 @@ class _CompraPageState extends State<CompraPage> {
                     ? Padding(
                         padding: const EdgeInsets.symmetric(vertical: 2),
                         child: Text(
-                          "$quantidade ${widget.moeda.sigla}",
+                          "$quantidade ${widget.moeda.symbol}",
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green.shade300,
@@ -147,7 +147,7 @@ class _CompraPageState extends State<CompraPage> {
                   setState(() {
                     quantidade = (value.isEmpty)
                         ? 0
-                        : double.parse(value) / widget.moeda.preco;
+                        : double.parse(value) / widget.moeda.price;
                   });
                 },
               ),

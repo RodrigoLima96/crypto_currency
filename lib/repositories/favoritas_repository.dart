@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_currency/database/db_firestore.dart';
-import 'package:crypto_currency/repositories/moeda_repository.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_controller.dart';
 import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:flutter/cupertino.dart';
 //import 'package:hive/hive.dart';
@@ -43,8 +43,8 @@ class FavoritasRepository extends ChangeNotifier {
 
       // ignore: avoid_function_literals_in_foreach_calls
       snapshot.docs.forEach((doc) {
-        Crypto moeda = moedas.tabela
-            .firstWhere((moeda) => moeda.sigla == doc.get('sigla'));
+        Crypto moeda = moedas.table
+            .firstWhere((moeda) => moeda.symbol == doc.get('sigla'));
         _lista.add(moeda);
         notifyListeners();
       });
@@ -60,16 +60,16 @@ class FavoritasRepository extends ChangeNotifier {
   saveAll(List<Crypto> moedas) {
     // ignore: avoid_function_literals_in_foreach_calls
     moedas.forEach((moeda) async {
-      if (!_lista.any((atual) => atual.sigla == moeda.sigla)) {
+      if (!_lista.any((atual) => atual.symbol == moeda.symbol)) {
         _lista.add(moeda);
         //box.put(moeda.sigla, moeda);
         await db
             .collection('usuarios/beqoWt3n09all8XNDe8BMjOg2Mr1/favoritas')
-            .doc(moeda.sigla)
+            .doc(moeda.symbol)
             .set({
-          'moeda': moeda.nome,
-          'sigla': moeda.sigla,
-          'preco': moeda.preco,
+          'moeda': moeda.name,
+          'sigla': moeda.symbol,
+          'preco': moeda.price,
         });
       }
     });
@@ -80,7 +80,7 @@ class FavoritasRepository extends ChangeNotifier {
   remove(Crypto moeda) async {
     await db
         .collection('usuarios/beqoWt3n09all8XNDe8BMjOg2Mr1/favoritas')
-        .doc(moeda.sigla)
+        .doc(moeda.symbol)
         .delete();
     _lista.remove(moeda);
     //box.delete(moeda.sigla);

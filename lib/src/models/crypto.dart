@@ -1,29 +1,29 @@
 class Crypto {
   String baseId;
-  String icone;
-  String nome;
-  String sigla;
-  double preco;
+  String icon;
+  String name;
+  String symbol;
+  double price;
   DateTime timeStamp;
-  double mudancaHora;
-  double mudandaDia;
-  double mudancaSemana;
-  double mudancaMes;
-  double mudancaAno;
-  double mudancaPeriodoTotal;
+  double changeHour;
+  double changeDay;
+  double changeWeek;
+  double changeMonth;
+  double changeYear;
+  double changeAllTime;
 
   Crypto({
     required this.baseId,
-    required this.icone,
-    required this.nome,
-    required this.sigla,
-    required this.preco,
+    required this.icon,
+    required this.name,
+    required this.symbol,
+    required this.price,
     required this.timeStamp,
-    required this.mudancaHora,
-    required this.mudandaDia,
-    required this.mudancaSemana,
-    required this.mudancaMes,
-    required this.mudancaAno,
-    required this.mudancaPeriodoTotal,
+    required this.changeHour,
+    required this.changeDay,
+    required this.changeWeek,
+    required this.changeMonth,
+    required this.changeYear,
+    required this.changeAllTime,
   });
 }

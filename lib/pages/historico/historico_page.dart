@@ -64,7 +64,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
     setState(() {
       totalCarteira = conta.saldo;
       for (var posicao in carteiraList) {
-        totalCarteira += posicao.moeda.preco * posicao.quantidade;
+        totalCarteira += posicao.moeda.price * posicao.quantidade;
       }
     });
   }
@@ -76,8 +76,8 @@ class _HistoricoPageState extends State<HistoricoPage> {
       graficoLabel = 'Saldo';
       graficoValor = conta.saldo;
     } else {
-      graficoLabel = carteira[index].moeda.nome;
-      graficoValor = carteira[index].moeda.preco * carteira[index].quantidade;
+      graficoLabel = carteira[index].moeda.name;
+      graficoValor = carteira[index].moeda.price * carteira[index].quantidade;
     }
   }
 
@@ -97,7 +97,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
 
       if (!isSaldo) {
         porcentagem =
-            carteira[i].moeda.preco * carteira[i].quantidade / totalCarteira;
+            carteira[i].moeda.price * carteira[i].quantidade / totalCarteira;
       } else {
         porcentagem = (conta.saldo > 0) ? conta.saldo / totalCarteira : 0;
       }
@@ -185,10 +185,10 @@ class _HistoricoPageState extends State<HistoricoPage> {
       (i) => {
         widgets.add(
           ListTile(
-            title: Text(historico[i].moeda.nome),
+            title: Text(historico[i].moeda.name),
             subtitle: Text(date.format(historico[i].dataOperacao)),
             trailing: Text(
-              real.format(historico[i].moeda.preco * historico[i].quantidade),
+              real.format(historico[i].moeda.price * historico[i].quantidade),
             ),
             leading: (historico[i].tipoOperacao == 'compra')
                 ? const Icon(

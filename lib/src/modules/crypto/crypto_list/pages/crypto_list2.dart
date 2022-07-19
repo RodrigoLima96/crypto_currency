@@ -1,7 +1,6 @@
-import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_settings_controller.dart';
 import 'package:crypto_currency/pages/transacoes/compra_detalhe_page.dart';
 import 'package:crypto_currency/repositories/favoritas_repository.dart';
-import 'package:crypto_currency/repositories/moeda_repository.dart';
+import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_controller.dart';
 import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -22,11 +21,6 @@ class _CryptoListPage2State extends State<CryptoListPage2> {
   late MoedasRepository moedas;
   late FavoritasRepository favoritas;
 
-  readNumberFormat() {
-    loc = context.watch<CryptoSettingsController>().locale;
-    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
-  }
-
   changeLanguageButton() {
     final locale = loc['locale'] == 'pt_BR' ? 'en_US' : 'pt_BR';
     final name = loc['locale'] == 'pt_BR' ? '\$' : 'R\$';
@@ -39,7 +33,6 @@ class _CryptoListPage2State extends State<CryptoListPage2> {
             leading: const Icon(Icons.swap_vert),
             title: Text('Usar $locale'),
             onTap: () {
-              context.read<CryptoSettingsController>().setLocale(locale, name);
               Navigator.pop(context);
             },
           ),
@@ -56,7 +49,7 @@ class _CryptoListPage2State extends State<CryptoListPage2> {
   }
 
   atualizaPrecos() async {
-    await moedas.checkPrecos();
+    await moedas.checkPrices();
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Preços atualizados com sucesso")),
@@ -96,10 +89,9 @@ class _CryptoListPage2State extends State<CryptoListPage2> {
 
   @override
   Widget build(BuildContext context) {
-    readNumberFormat();
     moedas = context.watch<MoedasRepository>();
     favoritas = context.watch<FavoritasRepository>();
-    tabela = moedas.tabela;
+    tabela = moedas.table;
     return Scaffold(
       appBar: appBarDinamica(),
       body: RefreshIndicator(
@@ -110,20 +102,20 @@ class _CryptoListPage2State extends State<CryptoListPage2> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               leading: SizedBox(
-                child: Image.network(tabela[i].icone),
+                child: Image.network(tabela[i].icon),
                 width: 40,
               ),
               title: Row(
                 children: [
                   Text(
-                    tabela[i].nome,
+                    tabela[i].name,
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   if (favoritas.lista
-                      .any((moeda) => moeda.sigla == tabela[i].sigla))
+                      .any((moeda) => moeda.symbol == tabela[i].symbol))
                     const Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: Icon(
@@ -134,7 +126,7 @@ class _CryptoListPage2State extends State<CryptoListPage2> {
                     ),
                 ],
               ),
-              trailing: Text(real.format(tabela[i].preco)),
+              trailing: Text(real.format(tabela[i].price)),
               selected: selecionadas.contains(tabela[i]),
               selectedTileColor: Colors.black,
               onLongPress: () {

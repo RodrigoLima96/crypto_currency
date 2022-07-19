@@ -10,12 +10,13 @@ class CryptoListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<CryptoListController>();
+
     return Scaffold(
       appBar: appBarDinamica(
-        selected: controller.selected,
-        changeLanguage: controller.changeLanguageButton(),
-        cleanSelected: controller.cleanSelected(),
-      ),
+          selected: controller.selected,
+          cleanSelected: () {
+            controller.cleanSelected();
+          }),
       body: const CryptoListBody(),
     );
   }

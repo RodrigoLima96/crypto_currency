@@ -23,7 +23,7 @@ class _MoedaCarteiraCardState extends State<MoedaCarteiraCard> {
 
   @override
   Widget build(BuildContext context) {
-    double total = widget.carteira.moeda.preco * widget.carteira.quantidade;
+    double total = widget.carteira.moeda.price * widget.carteira.quantidade;
 
     readNumberFormat();
     return Card(
@@ -43,7 +43,7 @@ class _MoedaCarteiraCardState extends State<MoedaCarteiraCard> {
           child: Row(
             children: [
               Image.network(
-                widget.carteira.moeda.icone,
+                widget.carteira.moeda.icon,
                 height: 40,
               ),
               Expanded(
@@ -53,7 +53,7 @@ class _MoedaCarteiraCardState extends State<MoedaCarteiraCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.carteira.moeda.nome,
+                        widget.carteira.moeda.name,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
