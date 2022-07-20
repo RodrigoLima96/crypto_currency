@@ -44,11 +44,7 @@ class CryptoCurrenciesList extends StatelessWidget {
           selected: controller.selected.contains(controller.cryptos[i]),
           selectedTileColor: Colors.black,
           onLongPress: () {
-            // setState(() {
-            //   (selecionadas.contains(tabela[i])
-            //       ? selecionadas.remove(tabela[i])
-            //       : selecionadas.add(tabela[i]));
-            // });
+            controller.selectCryptos(controller.cryptos[i]);
           },
           onTap: () => {},
         );

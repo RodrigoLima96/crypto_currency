@@ -23,4 +23,14 @@ class AllCryptoController extends ChangeNotifier {
     await getAllCryptos();
     notifyListeners();
   }
+
+  selectCryptos(Crypto crypto) {
+    if (!selected.contains(crypto)) {
+      selected.add(crypto);
+      notifyListeners();
+    } else {
+      selected.remove(crypto);
+      notifyListeners();
+    }
+  }
 }

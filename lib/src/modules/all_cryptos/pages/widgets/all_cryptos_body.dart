@@ -10,12 +10,15 @@ class AllCryptosBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = context.read<AllCryptoController>();
-    return RefreshIndicator(
-      onRefresh: () async {
-        await controller.refreshPrices();
-        showSnackBar(context, 'prices updated successfully');
-      },
-      child: const CryptoCurrenciesList(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          await controller.refreshPrices();
+          showSnackBar(context, 'prices updated successfully');
+        },
+        child: const CryptoCurrenciesList(),
+      ),
     );
   }
 }
