@@ -1,4 +1,5 @@
 import 'package:crypto_currency/src/modules/home/pages/home/widgets/pages.dart';
+import 'package:crypto_currency/src/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.settings), label: 'Settings'),
         ],
         onTap: navigationTapped,
-        backgroundColor: Colors.black,
+        backgroundColor: blackColor,
       ),
     );
   }

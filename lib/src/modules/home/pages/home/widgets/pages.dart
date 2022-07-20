@@ -1,14 +1,14 @@
-import 'package:crypto_currency/pages/carteira/carteira_page.dart';
-import 'package:crypto_currency/pages/configuracoes/configuracoes_page.dart';
-import 'package:crypto_currency/pages/historico/historico_page.dart';
-import 'package:crypto_currency/pages/moeda/favoritas_page.dart';
-import 'package:crypto_currency/src/modules/crypto/crypto_list/pages/crypto_list_page.dart';
+import 'package:crypto_currency/src/modules/all_cryptos/pages/all_cryptos_page.dart';
+import 'package:crypto_currency/src/modules/favorites/pages/favorites_page.dart';
+import 'package:crypto_currency/src/modules/settings/pages/settings_page.dart';
+import 'package:crypto_currency/src/modules/transactions/pages/transactions_page.dart';
+import 'package:crypto_currency/src/modules/wallet/pages/wallet_page.dart';
 import 'package:flutter/material.dart';
 
 List<Widget> appPages = const [
-  CryptoListPage(),
-  FavoritasPage(),
-  CarteiraPage(),
-  HistoricoPage(),
-  ConfiguracoesPage(),
+  AllCryptosPage(),
+  FavoritesPage(),
+  WalletPage(),
+  TransactionsPage(),
+  SettingsPage(),
 ];

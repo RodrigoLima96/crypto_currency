@@ -1,9 +1,4 @@
-import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_settings_controller.dart';
-import 'package:crypto_currency/repositories/conta_repository.dart';
-import 'package:crypto_currency/repositories/favoritas_repository.dart';
-import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_controller.dart';
 import 'package:crypto_currency/src/modules/auth/controllers/login_controller.dart';
-import 'package:crypto_currency/src/modules/crypto/crypto_list/controllers/crypto_list_controller.dart';
 import 'package:crypto_currency/src/routes/app_router.dart';
 import 'package:crypto_currency/src/services/auth/auth_service.dart';
 import 'package:crypto_currency/src/services/crypto_info_service/crypto_info_service.dart';
@@ -23,26 +18,12 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider(create: (_) => AuthService()),
         Provider(create: (_) => FirestoreService()),
-        Provider(create: (_) => CryptoInfoService()),
         Provider(create: (_) => Validator()),
+        Provider(create: (_) => CryptoInfoService()),
         ChangeNotifierProvider(
           create: (context) => LoginController(
             context.read(),
             context.read(),
-          ),
-        ),
-        ChangeNotifierProvider(create: (context) => CryptoSettingsController()),
-        ChangeNotifierProvider(create: (context) => CryptoListController()),
-        ChangeNotifierProvider(
-            create: (context) => MoedasRepository(context.read())),
-        ChangeNotifierProvider(
-          create: (context) => ContaRepository(
-            moedas: context.read<MoedasRepository>(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => FavoritasRepository(
-            moedas: context.read<MoedasRepository>(),
           ),
         ),
       ],
