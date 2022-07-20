@@ -1,4 +1,6 @@
+import 'package:crypto_currency/src/modules/all_cryptos/controllers/all_crypto_controller.dart';
 import 'package:crypto_currency/src/modules/auth/controllers/login_controller.dart';
+import 'package:crypto_currency/src/repositories/crypto_repository.dart';
 import 'package:crypto_currency/src/routes/app_router.dart';
 import 'package:crypto_currency/src/services/auth/auth_service.dart';
 import 'package:crypto_currency/src/services/crypto_info_service/crypto_info_service.dart';
@@ -25,6 +27,10 @@ class MyApp extends StatelessWidget {
             context.read(),
             context.read(),
           ),
+        ),
+        Provider(create: (context) => CryptoRepository(context.read())),
+        ChangeNotifierProvider(
+          create: (context) => AllCryptoController(context.read()),
         ),
       ],
       child: MaterialApp.router(

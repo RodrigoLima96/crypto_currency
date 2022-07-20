@@ -6,7 +6,7 @@ class CryptoInfoService {
   getCryptoPrices(Crypto crypto) async {
     final response = await http.get(
       Uri.parse(
-        'https://api.coinbase.com/v2/assets/prices/${crypto.baseId}?base=USD',
+        'https://api.coinbase.com/v2/assets/prices/${crypto.id}?base=USD',
       ),
     );
 

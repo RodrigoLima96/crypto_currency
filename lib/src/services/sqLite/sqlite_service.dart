@@ -4,8 +4,10 @@ import 'package:path/path.dart';
 class SqLiteService {
   SqLiteService._();
 
+  // Criar uma instância de DB
   static final SqLiteService instance = SqLiteService._();
 
+  // Instância de SQLite
   static Database? _dataBase;
 
   get database async {
@@ -30,7 +32,7 @@ class SqLiteService {
 
   String get _crypto => '''
     CREATE TABLE crypto (
-      baseId TEXT PRIMARY KEY,
+      id TEXT PRIMARY KEY,
       symbol TEXT,
       name TEXT,
       icon TEXT,
@@ -64,9 +66,4 @@ class SqLiteService {
       amount TEXT
     );
   ''';
-
-  checkTableEmpty() async {
-    List result = await _dataBase!.query('crypto');
-    return result.isEmpty;
-  }
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Crypto {
-  String baseId;
+  String id;
   String icon;
   String name;
   String symbol;
@@ -15,7 +15,7 @@ class Crypto {
   double changeAllTime;
 
   Crypto({
-    required this.baseId,
+    required this.id,
     required this.icon,
     required this.name,
     required this.symbol,
@@ -31,7 +31,7 @@ class Crypto {
 
   Map<String, dynamic> toMap() {
     return {
-      'baseId': baseId,
+      'id': id,
       'icon': icon,
       'name': name,
       'symbol': symbol,
@@ -48,7 +48,7 @@ class Crypto {
 
   factory Crypto.fromMap(Map<String, dynamic> map) {
     return Crypto(
-      baseId: map['baseId'] ?? '',
+      id: map['id'] ?? '',
       icon: map['icon'] ?? '',
       name: map['name'] ?? '',
       symbol: map['symbol'] ?? '',
