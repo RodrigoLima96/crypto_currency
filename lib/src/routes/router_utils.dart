@@ -1,6 +1,7 @@
 enum AppPage {
   login,
   home,
+  buyCrypto,
 }
 
 extension AppPageExtension on AppPage {
@@ -10,6 +11,8 @@ extension AppPageExtension on AppPage {
         return "/";
       case AppPage.login:
         return "/login";
+      case AppPage.buyCrypto:
+        return "/buyCrypto";
       default:
         return "/";
     }
@@ -21,6 +24,8 @@ extension AppPageExtension on AppPage {
         return "home";
       case AppPage.login:
         return "login";
+      case AppPage.buyCrypto:
+        return "buyCrypto";
       default:
         return "home";
     }

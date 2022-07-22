@@ -33,4 +33,9 @@ class AllCryptoController extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  cleanSelected() {
+    selected = [];
+    notifyListeners();
+  }
 }
