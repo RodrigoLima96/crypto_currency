@@ -1,3 +1,5 @@
+import 'package:crypto_currency/src/models/crypto.dart';
+import 'package:crypto_currency/src/modules/all_cryptos/pages/buy_crypto/buy_crypto_page.dart';
 import 'package:crypto_currency/src/modules/home/pages/home/home_page.dart';
 import 'package:crypto_currency/src/modules/auth/pages/login/login_page.dart';
 import 'package:crypto_currency/src/routes/router_utils.dart';
@@ -21,6 +23,13 @@ class AppRouter {
         path: AppPage.login.toPath,
         name: AppPage.login.toName,
         builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: AppPage.buyCrypto.toPath,
+        name: AppPage.buyCrypto.toName,
+        builder: (context, state) => BuyCryptoPage(
+          crypto: state.extra! as Crypto,
+        ),
       ),
     ],
   );

@@ -1,6 +1,8 @@
 import 'package:crypto_currency/src/modules/all_cryptos/controllers/all_crypto_controller.dart';
+import 'package:crypto_currency/src/routes/router_utils.dart';
 import 'package:crypto_currency/src/shared/utils/methods.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class CryptoCurrenciesList extends StatelessWidget {
@@ -46,7 +48,8 @@ class CryptoCurrenciesList extends StatelessWidget {
           onLongPress: () {
             controller.selectCryptos(controller.cryptos[i]);
           },
-          onTap: () => {},
+          onTap: () => context.push(AppPage.buyCrypto.toPath,
+              extra: controller.cryptos[i]),
         );
       },
       separatorBuilder: (_, __) => const Divider(),
