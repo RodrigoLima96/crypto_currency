@@ -1,4 +1,4 @@
-import 'package:crypto_currency/src/modules/all_cryptos/controllers/buy_crypto_controller.dart';
+import 'package:crypto_currency/src/modules/all_cryptos/controllers/buy_crypto_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +11,7 @@ class CryptoAmount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.watch<BuyCryptoController>();
+    final controller = context.watch<BuyCryptoPageController>();
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Container(
@@ -24,7 +24,8 @@ class CryptoAmount extends StatelessWidget {
                     fontSize: 20,
                     color: Colors.green.shade300,
                   ),
-                ))
+                ),
+              )
             : null,
         margin: const EdgeInsets.only(bottom: 20),
         alignment: Alignment.center,

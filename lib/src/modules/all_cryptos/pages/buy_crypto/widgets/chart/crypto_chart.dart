@@ -1,5 +1,5 @@
 import 'package:crypto_currency/src/models/crypto.dart';
-import 'package:crypto_currency/src/modules/all_cryptos/controllers/buy_crypto_controller.dart';
+import 'package:crypto_currency/src/modules/all_cryptos/controllers/buy_crypto_page_controller.dart';
 import 'package:crypto_currency/src/modules/all_cryptos/pages/buy_crypto/widgets/chart/chart_button.dart';
 import 'package:crypto_currency/src/shared/utils/methods.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +15,11 @@ class CryptoChart extends StatefulWidget {
 }
 
 class _CryptoChartState extends State<CryptoChart> {
-  late BuyCryptoController controller;
+  late BuyCryptoPageController controller;
 
   @override
   Widget build(BuildContext context) {
-    controller = context.watch<BuyCryptoController>();
+    controller = context.watch<BuyCryptoPageController>();
     controller.setData(widget.crypto.id);
     return SizedBox(
       child: AspectRatio(

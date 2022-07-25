@@ -25,10 +25,17 @@ class SqLiteService {
   }
 
   _onCreate(db, versao) async {
+    await db.execute(_account);
     await db.execute(_crypto);
     await db.execute(_wallet);
     await db.execute(_transactions);
   }
+
+  String get _account => '''
+    CREATE TABLE account (
+      balance REAL
+    );
+  ''';
 
   String get _crypto => '''
     CREATE TABLE crypto (

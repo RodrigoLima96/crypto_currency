@@ -5,11 +5,11 @@ import 'package:intl/intl.dart';
 
 enum Period { hour, day, week, month, year, all }
 
-class BuyCryptoController extends ChangeNotifier {
+class BuyCryptoPageController extends ChangeNotifier {
   final CryptoInfoService _cryptoInfoService;
+
   Period period = Period.hour;
-  double amount = 10;
-  double balance = 0;
+  double amount = 0;
   List<Color> colors = [const Color(0xFF3F51B5)];
   List allData = [];
   ValueNotifier<bool> loaded = ValueNotifier(false);
@@ -19,7 +19,7 @@ class BuyCryptoController extends ChangeNotifier {
   double maxY = 0;
   double minY = 0;
 
-  BuyCryptoController(this._cryptoInfoService);
+  BuyCryptoPageController(this._cryptoInfoService);
 
   getHistoricPrices(String cryptoId) async {
     List<Map<String, dynamic>> prices =
@@ -62,11 +62,6 @@ class BuyCryptoController extends ChangeNotifier {
     loaded.value = true;
   }
 
-  changePeriod(Period p) {
-    period = p;
-    notifyListeners();
-  }
-
   getDate(int index) {
     DateTime date = allData[index][1];
     if (period != Period.year && period != Period.all) {
@@ -74,5 +69,15 @@ class BuyCryptoController extends ChangeNotifier {
     } else {
       return DateFormat('dd/MM/y').format(date);
     }
+  }
+
+  changePeriod(Period p) {
+    period = p;
+    notifyListeners();
+  }
+
+  changeAmount(String value, double price) {
+    amount = (value.isEmpty) ? 0 : double.parse(value) / price;
+    notifyListeners();
   }
 }

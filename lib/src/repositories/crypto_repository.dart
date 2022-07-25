@@ -5,6 +5,8 @@ import 'package:sqflite/sqlite_api.dart';
 
 class CryptoRepository {
   List<Crypto> _cryptos = [];
+  List<Crypto> get cryptos => _cryptos;
+
   final CryptoInfoService _cryptoInfoService;
 
   CryptoRepository(

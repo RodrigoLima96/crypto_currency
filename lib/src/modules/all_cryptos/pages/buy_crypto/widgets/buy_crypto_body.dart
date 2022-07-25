@@ -13,7 +13,9 @@ class BuyCryptoBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController _amountController = TextEditingController();
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     final Size size = MediaQuery.of(context).size;
+
     return Container(
       height: size.height,
       width: size.width,
@@ -29,8 +31,14 @@ class BuyCryptoBody extends StatelessWidget {
             BuyCryptoInputText(
               amountController: _amountController,
               validator: (value) => null,
+              formKey: _formKey,
+              cryptoPrice: crypto.price,
             ),
-            const BuyCryptoButton(),
+            BuyCryptoButton(
+              formKey: _formKey,
+              amountController: _amountController,
+              crypto: crypto,
+            ),
           ],
         ),
       ),
