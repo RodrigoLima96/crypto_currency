@@ -30,7 +30,19 @@ class AllCryptoController extends ChangeNotifier {
   refreshPrices() async {
     await _cryptoRepository.refreshPrices(cryptos);
     await getAllCryptos();
-    notifyListeners();
+
+    List<Crypto> updateFavs = [];
+    for (var crypto in favCryptos) {
+      if (cryptos.any((element) => element.symbol == crypto.symbol)) {
+        Crypto newCrypto =
+            cryptos.firstWhere((element) => element.symbol == crypto.symbol);
+        updateFavs.add(newCrypto);
+      }
+    }
+    final String uid = await _authService.getUserUid();
+
+    await _firestoreService.updateFavCryptos(updateFavs, uid);
+    await getFavCryptos();
   }
 
   selectCryptos(Crypto crypto) {
@@ -64,5 +76,10 @@ class AllCryptoController extends ChangeNotifier {
     notifyListeners();
   }
 
-  checkFavCryptos() {}
+  removeFavCrypto(Crypto crypto) async {
+    final String uid = await _authService.getUserUid();
+    await _firestoreService.removeFavCrypto(crypto, uid);
+    favCryptos.remove(crypto);
+    notifyListeners();
+  }
 }

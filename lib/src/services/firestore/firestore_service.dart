@@ -63,6 +63,31 @@ class FirestoreService {
     }
   }
 
+  updateFavCryptos(List<Crypto> cryptos, String uid) async {
+    try {
+      for (var crypto in cryptos) {
+        await _firestore
+            .collection('users')
+            .doc(uid)
+            .collection('favorites')
+            .doc(crypto.symbol)
+            .update(
+          {
+            'price': crypto.price,
+            'changeHour': crypto.changeHour,
+            'changeDay': crypto.changeDay,
+            'changeWeek': crypto.changeWeek,
+            'changeMonth': crypto.changeMonth,
+            'changeYear': crypto.changeYear,
+            'changeAllTime': crypto.changeAllTime,
+          },
+        );
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   removeFavCrypto(Crypto crypto, String uid) async {
     try {
       await _firestore
