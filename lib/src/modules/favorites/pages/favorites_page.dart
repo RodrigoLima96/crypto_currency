@@ -1,4 +1,5 @@
 import 'package:crypto_currency/src/modules/favorites/pages/widgets/favorites_body.dart';
+import 'package:crypto_currency/src/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class FavoritesPage extends StatelessWidget {
@@ -10,6 +11,7 @@ class FavoritesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Favorites Cryptos'),
         centerTitle: true,
+        backgroundColor: blackColor,
       ),
       body: const FavoritesBody(),
     );
