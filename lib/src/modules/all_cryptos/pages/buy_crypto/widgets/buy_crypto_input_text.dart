@@ -46,11 +46,11 @@ class BuyCryptoInputText extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           validator: (value) {
             if (value!.isEmpty) {
-              return "Informe o valor da compra";
+              return "Enter the amount";
             } else if (double.parse(value) < 50) {
-              return "A compra mínima é R\$ 50,00";
+              return "The minimum purchase is \$50.00";
             } else if (double.parse(value) > accountController.userBalance) {
-              return "Saldo insuficiente";
+              return "insufficient balance";
             }
             return null;
           },

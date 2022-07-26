@@ -29,6 +29,7 @@ class SqLiteService {
     await db.execute(_crypto);
     await db.execute(_wallet);
     await db.execute(_transactions);
+    await db.insert('account', {'balance': 0});
   }
 
   String get _account => '''

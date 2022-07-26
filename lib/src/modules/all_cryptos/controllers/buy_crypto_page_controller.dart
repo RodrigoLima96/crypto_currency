@@ -32,9 +32,7 @@ class BuyCryptoPageController extends ChangeNotifier {
     loaded.value = false;
     chartData = [];
 
-    if (historic.isEmpty) {
-      historic = await getHistoricPrices(cryptoId);
-    }
+    historic = await getHistoricPrices(cryptoId);
 
     allData = historic[period.index]['prices'];
     allData = allData.reversed.map((item) {

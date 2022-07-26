@@ -17,10 +17,14 @@ class CryptoChart extends StatefulWidget {
 class _CryptoChartState extends State<CryptoChart> {
   late BuyCryptoPageController controller;
 
+  setData() async {
+    await controller.setData(widget.crypto.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     controller = context.watch<BuyCryptoPageController>();
-    controller.setData(widget.crypto.id);
+    setData();
     return SizedBox(
       child: AspectRatio(
         aspectRatio: 2,

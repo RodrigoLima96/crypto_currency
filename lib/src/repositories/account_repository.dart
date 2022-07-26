@@ -7,8 +7,11 @@ class AccountRepository {
     Database db = await SqLiteService.instance.database;
 
     List account = await db.query('account', limit: 1);
-    double _balance = account.first['balance'];
-    return _balance;
+    if (account.isNotEmpty) {
+      double _balance = account.first['balance'];
+      return _balance;
+    }
+    return 0.0;
   }
 
   getWallet() async {
@@ -27,7 +30,7 @@ class AccountRepository {
 
   setBalance(double value) async {
     Database db = await SqLiteService.instance.database;
-    db.update('account', {'balance': value});
+    await db.update('account', {'balance': value});
   }
 
   buyCrypto(Crypto crypto, double value, double userBalance) async {

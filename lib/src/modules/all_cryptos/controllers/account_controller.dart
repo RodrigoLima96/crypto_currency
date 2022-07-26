@@ -3,7 +3,6 @@ import 'package:crypto_currency/src/models/transaction.dart';
 import 'package:crypto_currency/src/models/wallet.dart';
 import 'package:crypto_currency/src/repositories/crypto_repository.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:crypto_currency/src/repositories/account_repository.dart';
 
 class AccountController extends ChangeNotifier {
@@ -35,14 +34,16 @@ class AccountController extends ChangeNotifier {
     _wallet = [];
     List positions = await _accountRepository.getWallet();
 
+    List<Crypto> cryptos = await _cryptoRepository.readCryptosTable();
+
     for (var position in positions) {
-      Crypto crypto = _cryptoRepository.cryptos.firstWhere(
+      Crypto crypto = cryptos.firstWhere(
         (c) => c.symbol == position['symbol'],
       );
       _wallet.add(
         Wallet(
           crypto: crypto,
-          amount: position['quantidade'],
+          amount: double.parse(position['amount']),
         ),
       );
     }
@@ -53,8 +54,10 @@ class AccountController extends ChangeNotifier {
     _transactions = [];
     List userTransactions = await _accountRepository.getTransactions();
 
+    List<Crypto> cryptos = await _cryptoRepository.readCryptosTable();
+
     for (var transaction in userTransactions) {
-      Crypto crypto = _cryptoRepository.cryptos.firstWhere(
+      Crypto crypto = cryptos.firstWhere(
         (c) => c.symbol == transaction['symbol'],
       );
       _transactions.add(
@@ -74,12 +77,14 @@ class AccountController extends ChangeNotifier {
   setUserBalance(double value) async {
     await _accountRepository.setBalance(value);
     _userBalance = value;
+    await _getUserBalance();
     notifyListeners();
   }
 
   buyCrypto(Crypto crypto, String value) async {
     double amount = double.parse(value);
     await _accountRepository.buyCrypto(crypto, amount, userBalance);
+    await _getUserBalance();
     notifyListeners();
   }
 }

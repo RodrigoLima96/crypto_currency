@@ -19,7 +19,7 @@ class ImageAndPrice extends StatelessWidget {
       children: [
         Image.network(
           image,
-          scale: 2.5,
+          width: 50,
         ),
         Container(
           width: 40,
