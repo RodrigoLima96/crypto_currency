@@ -1,5 +1,7 @@
 import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:crypto_currency/src/repositories/crypto_repository.dart';
+import 'package:crypto_currency/src/services/auth/auth_service.dart';
+import 'package:crypto_currency/src/services/firestore/firestore_service.dart';
 import 'package:flutter/cupertino.dart';
 
 class AllCryptoController extends ChangeNotifier {
@@ -8,9 +10,16 @@ class AllCryptoController extends ChangeNotifier {
   List<Crypto> selected = [];
 
   final CryptoRepository _cryptoRepository;
+  final FirestoreService _firestoreService;
+  final AuthService _authService;
 
-  AllCryptoController(this._cryptoRepository) {
+  AllCryptoController(
+    this._cryptoRepository,
+    this._firestoreService,
+    this._authService,
+  ) {
     getAllCryptos();
+    getFavCryptos();
   }
 
   getAllCryptos() async {
@@ -38,4 +47,22 @@ class AllCryptoController extends ChangeNotifier {
     selected = [];
     notifyListeners();
   }
+
+  saveFavCryptos() async {
+    final String uid = await _authService.getUserUid();
+
+    await _firestoreService.saveFavCryptos(selected, uid);
+
+    cleanSelected();
+    await getFavCryptos();
+  }
+
+  getFavCryptos() async {
+    final String uid = await _authService.getUserUid();
+
+    favCryptos = await _firestoreService.getFavCryptos(uid);
+    notifyListeners();
+  }
+
+  checkFavCryptos() {}
 }

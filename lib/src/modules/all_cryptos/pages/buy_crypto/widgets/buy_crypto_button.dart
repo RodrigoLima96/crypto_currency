@@ -1,5 +1,6 @@
 import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:crypto_currency/src/modules/all_cryptos/controllers/account_controller.dart';
+import 'package:crypto_currency/src/modules/all_cryptos/controllers/buy_crypto_page_controller.dart';
 import 'package:crypto_currency/src/routes/router_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +21,7 @@ class BuyCryptoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<AccountController>();
+    final buyController = context.read<BuyCryptoPageController>();
     return Container(
       alignment: Alignment.bottomCenter,
       margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
@@ -29,6 +31,7 @@ class BuyCryptoButton extends StatelessWidget {
             await controller.buyCrypto(crypto, amountController.text);
             context.goNamed(AppPage.home.toName);
           }
+          buyController.cleanAmount();
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

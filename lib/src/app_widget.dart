@@ -33,7 +33,11 @@ class MyApp extends StatelessWidget {
         ),
         Provider(create: (context) => CryptoRepository(context.read())),
         ChangeNotifierProvider(
-          create: (context) => AllCryptoController(context.read()),
+          create: (context) => AllCryptoController(
+            context.read(),
+            context.read(),
+            context.read(),
+          ),
         ),
         ChangeNotifierProvider(
           create: (context) => BuyCryptoPageController(context.read()),

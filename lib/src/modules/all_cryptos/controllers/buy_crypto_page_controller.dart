@@ -78,4 +78,9 @@ class BuyCryptoPageController extends ChangeNotifier {
     amount = (value.isEmpty) ? 0 : double.parse(value) / price;
     notifyListeners();
   }
+
+  cleanAmount() {
+    amount = 0;
+    notifyListeners();
+  }
 }

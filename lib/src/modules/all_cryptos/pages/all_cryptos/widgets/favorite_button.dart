@@ -11,9 +11,8 @@ class FavoriteButton extends StatelessWidget {
 
     return controller.selected.isNotEmpty
         ? FloatingActionButton.extended(
-            onPressed: () {
-              // favoritas.saveAll(selecionadas);
-              // limparSelecionadas();
+            onPressed: () async {
+              await controller.saveFavCryptos();
             },
             shape: const StadiumBorder(
                 side: BorderSide(color: Colors.white, width: 2)),
