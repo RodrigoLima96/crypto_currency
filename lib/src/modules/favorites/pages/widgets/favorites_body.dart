@@ -19,7 +19,7 @@ class FavoritesBody extends StatelessWidget {
                 itemCount: favorites.favCryptos.length,
                 itemBuilder: (_, crypto) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: CryptoCard(crypto: favorites.favCryptos[crypto]),
                   );
                 },

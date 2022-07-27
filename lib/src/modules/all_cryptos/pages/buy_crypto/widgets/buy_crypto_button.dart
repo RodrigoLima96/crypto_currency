@@ -30,8 +30,8 @@ class BuyCryptoButton extends StatelessWidget {
           if (formKey.currentState!.validate()) {
             await controller.buyCrypto(crypto, amountController.text);
             context.goNamed(AppPage.home.toName);
+            await buyController.cleanAmount();
           }
-          buyController.cleanAmount();
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

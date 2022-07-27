@@ -1,6 +1,8 @@
 import 'package:crypto_currency/src/models/wallet.dart';
+import 'package:crypto_currency/src/routes/router_utils.dart';
 import 'package:crypto_currency/src/shared/utils/methods.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CryptoWalletCard extends StatefulWidget {
   final Wallet wallet;
@@ -20,12 +22,7 @@ class _CryptoWalletCardState extends State<CryptoWalletCard> {
       elevation: 20,
       child: InkWell(
         onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => VendaPage(moeda: widget.carteira),
-          //   ),
-          // );
+          context.push(AppPage.sellCrypto.toPath, extra: widget.wallet);
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
