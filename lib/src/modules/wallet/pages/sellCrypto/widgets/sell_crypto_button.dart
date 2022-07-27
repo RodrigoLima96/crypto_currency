@@ -1,17 +1,16 @@
 import 'package:crypto_currency/src/models/crypto.dart';
-import 'package:crypto_currency/src/modules/all_cryptos/controllers/account_controller.dart';
-import 'package:crypto_currency/src/modules/all_cryptos/controllers/buy_crypto_page_controller.dart';
-import 'package:crypto_currency/src/routes/router_utils.dart';
+import 'package:crypto_currency/src/modules/wallet/controllers/wallet_controller.dart';
+import 'package:crypto_currency/src/shared/utils/methods.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class BuyCryptoButton extends StatelessWidget {
-  final Crypto crypto;
+class SellCryptoButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController amountController;
+  final Crypto crypto;
 
-  const BuyCryptoButton({
+  const SellCryptoButton({
     Key? key,
     required this.formKey,
     required this.amountController,
@@ -20,17 +19,17 @@ class BuyCryptoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.watch<AccountController>();
-    final buyController = context.read<BuyCryptoPageController>();
+    final controller = context.read<WalletController>();
     return Container(
       alignment: Alignment.bottomCenter,
       margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
       child: ElevatedButton(
         onPressed: () async {
           if (formKey.currentState!.validate()) {
-            await controller.buyCrypto(crypto, amountController.text);
-            await buyController.cleanAmount();
-            context.goNamed(AppPage.home.toName);
+            await controller.sellCrypto(crypto, amountController.text);
+            await controller.getWallet();
+            showSnackBar(context, 'Successful');
+            context.pop();
           }
         },
         child: Row(
@@ -40,7 +39,7 @@ class BuyCryptoButton extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 5, top: 15, bottom: 15),
               child: Text(
-                "Buy",
+                "Sell",
                 style: TextStyle(fontSize: 20),
               ),
             )

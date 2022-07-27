@@ -7,6 +7,7 @@ import 'package:crypto_currency/src/repositories/account_repository.dart';
 class WalletController extends ChangeNotifier {
   final AccountRepository _accountRepository;
   final CryptoRepository _cryptoRepository;
+  double amount = 0;
 
   List<Wallet> _wallet = [];
   List<Wallet> get wallet => _wallet;
@@ -33,6 +34,29 @@ class WalletController extends ChangeNotifier {
         ),
       );
     }
+    notifyListeners();
+  }
+
+  setAmount(double value) {
+    amount = value;
+    notifyListeners();
+  }
+
+  changeAmount(String value, double price, double total) {
+    amount = (value.isEmpty) ? total : double.parse(value) / price;
+    notifyListeners();
+  }
+
+  cleanAmount() {
+    amount = 0;
+    notifyListeners();
+  }
+
+  sellCrypto(Crypto crypto, String value) async {
+    double amount = double.parse(value);
+    final double userBalance = await _accountRepository.getBalance();
+    await _accountRepository.sellCrypto(crypto, amount, userBalance);
+
     notifyListeners();
   }
 }

@@ -37,14 +37,14 @@ class AccountRepository {
     Database db = await SqLiteService.instance.database;
 
     await db.transaction((txn) async {
-      // Verifica se a moeda já foi comprada
+      // Check if the crypto has already been purchased
       final cryptoPosition = await txn.query(
         'wallet',
         where: 'symbol = ?',
         whereArgs: [crypto.symbol],
       );
 
-      // Se não tem a moeda em carteira
+      // If you don't have the crypto
       if (cryptoPosition.isEmpty) {
         await txn.insert('wallet', {
           'symbol': crypto.symbol,
@@ -53,7 +53,7 @@ class AccountRepository {
         });
       }
 
-      // Já tem a moeda em carteira
+      // Already have the crypto
       else {
         final newCrypto =
             double.parse(cryptoPosition.first['amount'].toString());
@@ -65,7 +65,7 @@ class AccountRepository {
         );
       }
 
-      // Inserir a compra no histórico
+      // Insert the purchase in the history
       await txn.insert('transactions', {
         'symbol': crypto.symbol,
         'crypto': crypto.name,
@@ -75,8 +75,46 @@ class AccountRepository {
         'date_operation': DateTime.now().millisecondsSinceEpoch
       });
 
-      //Atualizar o saldo
+      // Update balance
       await txn.update('account', {'balance': userBalance - value});
+    });
+  }
+
+  sellCrypto(Crypto crypto, double value, double userBalance) async {
+    Database db = await SqLiteService.instance.database;
+    await db.transaction((txn) async {
+      final walletCrypto = await txn.query(
+        'wallet',
+        where: 'symbol = ?',
+        whereArgs: [crypto.symbol],
+      );
+
+      final oldValue = double.parse(walletCrypto.first['amount'].toString());
+
+      await txn.update(
+        'wallet',
+        {'amount': (oldValue - (value / crypto.price)).toString()},
+        where: 'symbol = ?',
+        whereArgs: [crypto.symbol],
+      );
+
+      double newValue = value / double.parse(crypto.price.toStringAsFixed(2));
+
+      if (oldValue - newValue <= 0) {
+        await txn
+            .delete('wallet', where: 'symbol = ?', whereArgs: [crypto.symbol]);
+      }
+
+      await txn.insert('transactions', {
+        'symbol': crypto.symbol,
+        'crypto': crypto.name,
+        'amount': (value / crypto.price).toString(),
+        'value': value,
+        'type_operation': 'sell',
+        'date_operation': DateTime.now().millisecondsSinceEpoch
+      });
+
+      await txn.update('account', {'balance': userBalance + value});
     });
   }
 }
