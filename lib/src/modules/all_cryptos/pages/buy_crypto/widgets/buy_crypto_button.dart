@@ -2,6 +2,7 @@ import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:crypto_currency/src/modules/all_cryptos/controllers/account_controller.dart';
 import 'package:crypto_currency/src/modules/all_cryptos/controllers/buy_crypto_page_controller.dart';
 import 'package:crypto_currency/src/routes/router_utils.dart';
+import 'package:crypto_currency/src/shared/utils/methods.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,7 @@ class BuyCryptoButton extends StatelessWidget {
           if (formKey.currentState!.validate()) {
             await controller.buyCrypto(crypto, amountController.text);
             await buyController.cleanAmount();
+            showSnackBar(context, 'Successful');
             context.goNamed(AppPage.home.toName);
           }
         },

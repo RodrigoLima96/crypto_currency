@@ -47,8 +47,6 @@ class BuyCryptoInputText extends StatelessWidget {
           validator: (value) {
             if (value!.isEmpty) {
               return "Enter the amount";
-            } else if (double.parse(value) < 50) {
-              return "The minimum purchase is \$50.00";
             } else if (double.parse(value) > accountController.userBalance) {
               return "insufficient balance";
             }
