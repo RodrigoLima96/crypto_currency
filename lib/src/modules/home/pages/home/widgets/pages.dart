@@ -6,9 +6,9 @@ import 'package:crypto_currency/src/modules/wallet/pages/wallet/wallet_page.dart
 import 'package:flutter/material.dart';
 
 List<Widget> appPages = const [
+  SettingsPage(),
   AllCryptosPage(),
   FavoritesPage(),
   WalletPage(),
   TransactionsPage(),
-  SettingsPage(),
 ];

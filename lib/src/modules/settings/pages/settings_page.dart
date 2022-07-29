@@ -1,3 +1,5 @@
+import 'package:crypto_currency/src/modules/settings/pages/widgets/settings_body.dart';
+import 'package:crypto_currency/src/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -5,8 +7,13 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Settings Page')),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Settings'),
+        centerTitle: true,
+        backgroundColor: blackColor,
+      ),
+      body: const SettingsBody(),
     );
   }
 }
