@@ -2,6 +2,7 @@ import 'package:crypto_currency/src/modules/all_cryptos/controllers/account_cont
 import 'package:crypto_currency/src/modules/all_cryptos/controllers/all_crypto_controller.dart';
 import 'package:crypto_currency/src/modules/all_cryptos/controllers/buy_crypto_page_controller.dart';
 import 'package:crypto_currency/src/modules/auth/controllers/login_controller.dart';
+import 'package:crypto_currency/src/modules/transactions/controllers/transactions_controller.dart';
 import 'package:crypto_currency/src/modules/wallet/controllers/wallet_controller.dart';
 import 'package:crypto_currency/src/repositories/account_repository.dart';
 import 'package:crypto_currency/src/repositories/crypto_repository.dart';
@@ -50,6 +51,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => WalletController(context.read(), context.read()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              TransactionsController(context.read(), context.read()),
         ),
       ],
       child: MaterialApp.router(

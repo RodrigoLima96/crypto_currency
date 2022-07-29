@@ -1,3 +1,4 @@
+import 'package:crypto_currency/src/modules/transactions/pages/widgets/transactions_body.dart';
 import 'package:flutter/material.dart';
 
 class TransactionsPage extends StatelessWidget {
@@ -6,7 +7,7 @@ class TransactionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text('Transactions Page')),
+      body: TransactionsBody(),
     );
   }
 }
