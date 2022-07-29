@@ -1,5 +1,5 @@
 import 'package:crypto_currency/src/modules/settings/controllers/settings_controller.dart';
-import 'package:crypto_currency/src/modules/settings/pages/widgets/update_balance_dialog.dart';
+import 'package:crypto_currency/src/modules/settings/pages/settings/widgets/update_balance_dialog.dart';
 import 'package:crypto_currency/src/shared/utils/methods.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

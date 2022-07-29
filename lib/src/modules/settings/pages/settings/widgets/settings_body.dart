@@ -1,7 +1,7 @@
-import 'package:crypto_currency/src/modules/settings/pages/widgets/edit_user_button.dart';
-import 'package:crypto_currency/src/modules/settings/pages/widgets/logout_button.dart';
-import 'package:crypto_currency/src/modules/settings/pages/widgets/update_balance.dart';
-import 'package:crypto_currency/src/modules/settings/pages/widgets/user_info.dart';
+import 'package:crypto_currency/src/modules/settings/pages/settings/widgets/edit_user_button.dart';
+import 'package:crypto_currency/src/modules/settings/pages/settings/widgets/logout_button.dart';
+import 'package:crypto_currency/src/modules/settings/pages/settings/widgets/update_balance.dart';
+import 'package:crypto_currency/src/modules/settings/pages/settings/widgets/user_info.dart';
 import 'package:flutter/material.dart';
 
 class SettingsBody extends StatelessWidget {

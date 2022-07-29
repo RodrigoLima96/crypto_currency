@@ -1,4 +1,4 @@
-import 'package:crypto_currency/src/modules/settings/pages/widgets/settings_body.dart';
+import 'package:crypto_currency/src/modules/settings/pages/settings/widgets/settings_body.dart';
 import 'package:crypto_currency/src/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 
