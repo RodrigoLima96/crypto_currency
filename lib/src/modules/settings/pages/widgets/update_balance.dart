@@ -1,8 +1,10 @@
+import 'package:crypto_currency/src/modules/settings/controllers/settings_controller.dart';
 import 'package:crypto_currency/src/modules/settings/pages/widgets/update_balance_dialog.dart';
 import 'package:crypto_currency/src/shared/utils/methods.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class UpdateBalance extends StatelessWidget {
+class UpdateBalance extends StatefulWidget {
   final TextEditingController balanceController;
   final GlobalKey<FormState> formKey;
 
@@ -13,13 +15,26 @@ class UpdateBalance extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<UpdateBalance> createState() => _UpdateBalanceState();
+}
+
+class _UpdateBalanceState extends State<UpdateBalance> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<SettingsController>().getUserBalance();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double balance = 250;
+    final controller = context.watch<SettingsController>();
 
     return ListTile(
       title: const Text('Balance'),
       subtitle: Text(
-        price.format(balance),
+        price.format(controller.userBalance),
         style: TextStyle(fontSize: 25, color: Colors.green.shade300),
       ),
       trailing: IconButton(
@@ -27,8 +42,8 @@ class UpdateBalance extends StatelessWidget {
             showDialog(
               context: context,
               builder: (context) => UpdateBalanceDialog(
-                balanceController: balanceController,
-                formKey: formKey,
+                balanceController: widget.balanceController,
+                formKey: widget.formKey,
               ),
             );
           },

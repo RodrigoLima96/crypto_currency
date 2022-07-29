@@ -74,13 +74,6 @@ class AccountController extends ChangeNotifier {
     notifyListeners();
   }
 
-  setUserBalance(double value) async {
-    await _accountRepository.setBalance(value);
-    _userBalance = value;
-    await getUserBalance();
-    notifyListeners();
-  }
-
   buyCrypto(Crypto crypto, String value) async {
     double amount = double.parse(value);
     await _accountRepository.buyCrypto(crypto, amount, userBalance);

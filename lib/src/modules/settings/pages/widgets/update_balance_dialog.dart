@@ -1,5 +1,7 @@
+import 'package:crypto_currency/src/modules/settings/controllers/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class UpdateBalanceDialog extends StatelessWidget {
   final TextEditingController balanceController;
@@ -13,6 +15,8 @@ class UpdateBalanceDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<SettingsController>();
+
     return AlertDialog(
       title: const Text(
         'Update Balance',
@@ -42,8 +46,10 @@ class UpdateBalanceDialog extends StatelessWidget {
               child: const Text('CANCEL'),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 if (formKey.currentState!.validate()) {
+                  final double value = double.parse(balanceController.text);
+                  await controller.updateBalance(value);
                   Navigator.pop(context);
                 }
               },
