@@ -26,7 +26,10 @@ class SellCryptoButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () async {
           if (formKey.currentState!.validate()) {
-            await controller.sellCrypto(crypto, amountController.text);
+            await controller.sellCrypto(
+              crypto,
+              amountController.text,
+            );
             await controller.getWallet();
             showSnackBar(context, 'Successful');
             context.pop();

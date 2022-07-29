@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-class BuyCryptoInputText extends StatelessWidget {
+class BuyCryptoInputText extends StatefulWidget {
   final TextEditingController amountController;
   final FormFieldValidator<String> validator;
   final GlobalKey<FormState> formKey;
@@ -19,15 +19,26 @@ class BuyCryptoInputText extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<BuyCryptoInputText> createState() => _BuyCryptoInputTextState();
+}
+
+class _BuyCryptoInputTextState extends State<BuyCryptoInputText> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AccountController>().getUserBalance();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final accountController = context.read<AccountController>();
+    final accountController = context.watch<AccountController>();
     final buyCryptoController = context.watch<BuyCryptoPageController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Form(
-        key: formKey,
+        key: widget.formKey,
         child: TextFormField(
-          controller: amountController,
+          controller: widget.amountController,
           style: const TextStyle(fontSize: 22),
           decoration: const InputDecoration(
             label: Text("Value"),
@@ -53,7 +64,7 @@ class BuyCryptoInputText extends StatelessWidget {
             return null;
           },
           onChanged: (value) {
-            buyCryptoController.changeAmount(value, cryptoPrice);
+            buyCryptoController.changeAmount(value, widget.cryptoPrice);
           },
         ),
       ),

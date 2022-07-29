@@ -98,9 +98,9 @@ class AccountRepository {
         whereArgs: [crypto.symbol],
       );
 
-      double newValue = value / double.parse(crypto.price.toStringAsFixed(2));
+      double newValue = oldValue - (value / crypto.price);
 
-      if (oldValue - newValue <= 0) {
+      if (newValue * crypto.price <= 0.01) {
         await txn
             .delete('wallet', where: 'symbol = ?', whereArgs: [crypto.symbol]);
       }

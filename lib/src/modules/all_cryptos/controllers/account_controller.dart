@@ -20,12 +20,12 @@ class AccountController extends ChangeNotifier {
     this._accountRepository,
     this._cryptoRepository,
   ) {
-    _getUserBalance();
+    getUserBalance();
     _getWallet();
     _getTransactions();
   }
 
-  _getUserBalance() async {
+  getUserBalance() async {
     _userBalance = await _accountRepository.getBalance();
     notifyListeners();
   }
@@ -77,14 +77,14 @@ class AccountController extends ChangeNotifier {
   setUserBalance(double value) async {
     await _accountRepository.setBalance(value);
     _userBalance = value;
-    await _getUserBalance();
+    await getUserBalance();
     notifyListeners();
   }
 
   buyCrypto(Crypto crypto, String value) async {
     double amount = double.parse(value);
     await _accountRepository.buyCrypto(crypto, amount, userBalance);
-    await _getUserBalance();
+    await getUserBalance();
     notifyListeners();
   }
 }
