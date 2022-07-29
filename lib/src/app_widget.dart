@@ -11,6 +11,7 @@ import 'package:crypto_currency/src/routes/app_router.dart';
 import 'package:crypto_currency/src/services/auth/auth_service.dart';
 import 'package:crypto_currency/src/services/crypto_info_service/crypto_info_service.dart';
 import 'package:crypto_currency/src/services/firestore/firestore_service.dart';
+import 'package:crypto_currency/src/services/storage/storage_service.dart';
 import 'package:crypto_currency/src/shared/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         Provider(create: (_) => FirestoreService()),
         Provider(create: (_) => Validator()),
         Provider(create: (_) => CryptoInfoService()),
+        Provider(create: (_) => StorageService()),
         ChangeNotifierProvider(
           create: (context) => LoginController(
             context.read(),
@@ -59,6 +61,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => SettingsController(
+            context.read(),
             context.read(),
             context.read(),
             context.read(),

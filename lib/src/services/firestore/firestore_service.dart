@@ -100,4 +100,29 @@ class FirestoreService {
       debugPrint(e.toString());
     }
   }
+
+  Future<String> updateUser(
+    String uid,
+    String name,
+    String? newPhotoUrl,
+  ) async {
+    String status = '';
+    try {
+      if (newPhotoUrl != null) {
+        _firestore.collection('users').doc(uid).update({
+          'name': name,
+          'photoUrl': newPhotoUrl,
+        });
+      } else {
+        _firestore.collection('users').doc(uid).update({
+          'name': name,
+        });
+      }
+
+      status = 'success';
+    } catch (error) {
+      status = error.toString();
+    }
+    return status;
+  }
 }

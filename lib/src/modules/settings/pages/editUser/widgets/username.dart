@@ -26,7 +26,10 @@ class UserName extends StatelessWidget {
           decoration: const InputDecoration(
             hintText: 'name',
           ),
-          validator: (value) => null,
+          validator: (value) {
+            if (value!.isEmpty) return 'Enter your name';
+            return null;
+          },
           keyboardType: TextInputType.text,
         ),
       ),

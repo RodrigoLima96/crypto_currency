@@ -1,5 +1,7 @@
 import 'package:crypto_currency/src/modules/settings/controllers/settings_controller.dart';
+import 'package:crypto_currency/src/shared/utils/methods.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class UpdateUserButton extends StatelessWidget {
@@ -26,7 +28,15 @@ class UpdateUserButton extends StatelessWidget {
             child: ElevatedButton(
               child: const Text('UPDATE'),
               onPressed: () {
-                if (formKey.currentState!.validate()) {}
+                if (formKey.currentState!.validate()) {
+                  controller.updateUser(name.text);
+                  controller.addListener(() {
+                    if (controller.state == EditUserState.success) {
+                      showSnackBar(context, 'update success');
+                      context.pop();
+                    }
+                  });
+                }
               },
             ),
           );
