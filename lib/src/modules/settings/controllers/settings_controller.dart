@@ -42,4 +42,8 @@ class SettingsController extends ChangeNotifier {
     loadUserInfo = false;
     notifyListeners();
   }
+
+  logout() async {
+    _authService.logout();
+  }
 }
