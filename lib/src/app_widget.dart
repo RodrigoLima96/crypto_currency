@@ -58,7 +58,11 @@ class MyApp extends StatelessWidget {
               TransactionsController(context.read(), context.read()),
         ),
         ChangeNotifierProvider(
-          create: (context) => SettingsController(context.read()),
+          create: (context) => SettingsController(
+            context.read(),
+            context.read(),
+            context.read(),
+          ),
         ),
       ],
       child: MaterialApp.router(
