@@ -5,7 +5,7 @@
 
 # crypto simulator
 
-## Crypto simulator is a trading simulator that allows buying and selling cryptocurrencies with a value set by you and simulate the profit earned.  The app has interactive charts and trading history.
+## Crypto simulator is a trading simulator that allows buying and selling cryptocurrencies and simulate the profit earned. The app has interactive charts and trading history.
 
 <img src="README_FILES/tumb/tumb.png"/>
 
@@ -40,3 +40,25 @@
 * [google_sign_in](https://pub.dev/packages/google_sign_in)
 
 </details>
+
+## App Demo
+ <p align="center">
+     login, sign-up, google-login | add-fav-cryptos, user-profile, set-balance, edit-user, logout
+  </p>
+
+  <p align="center">
+ <img align="center" src="README_FILES/gifs/login.gif" height="600">
+ &nbsp &nbsp &nbsp
+<img align="center" src="README_FILES/gifs/profile.gif" height="600">
+</p>
+
+## App Demo
+ <p align="center">
+     refresh-price, buy-crypto, sell-crypto | change-time-chart, wallet-chart
+  </p>
+
+  <p align="center">
+ <img align="center" src="README_FILES/gifs/buy-sell.gif" height="600">
+ &nbsp &nbsp &nbsp
+<img align="center" src="README_FILES/gifs/chart.gif" height="600">
+</p>
