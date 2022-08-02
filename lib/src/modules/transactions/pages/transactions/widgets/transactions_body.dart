@@ -1,7 +1,7 @@
 import 'package:crypto_currency/src/modules/transactions/controllers/transactions_controller.dart';
-import 'package:crypto_currency/src/modules/transactions/pages/widgets/total_wallet_amount.dart';
-import 'package:crypto_currency/src/modules/transactions/pages/widgets/transactions_history.dart';
-import 'package:crypto_currency/src/modules/transactions/pages/widgets/wallet_chart.dart';
+import 'package:crypto_currency/src/modules/transactions/pages/transactions/widgets/total_wallet_amount.dart';
+import 'package:crypto_currency/src/modules/transactions/pages/transactions/widgets/transactions_history.dart';
+import 'package:crypto_currency/src/modules/transactions/pages/transactions/widgets/wallet_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

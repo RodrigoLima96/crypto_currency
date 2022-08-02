@@ -1,4 +1,4 @@
-import 'package:crypto_currency/src/modules/transactions/pages/widgets/transactions_body.dart';
+import 'package:crypto_currency/src/modules/transactions/pages/transactions/widgets/transactions_body.dart';
 import 'package:flutter/material.dart';
 
 class TransactionsPage extends StatelessWidget {

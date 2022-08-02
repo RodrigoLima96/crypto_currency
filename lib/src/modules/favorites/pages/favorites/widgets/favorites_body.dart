@@ -1,5 +1,5 @@
 import 'package:crypto_currency/src/modules/all_cryptos/controllers/all_crypto_controller.dart';
-import 'package:crypto_currency/src/modules/favorites/pages/widgets/crypto_card.dart';
+import 'package:crypto_currency/src/modules/favorites/pages/favorites/widgets/crypto_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
