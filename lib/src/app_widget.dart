@@ -11,6 +11,7 @@ import 'package:crypto_currency/src/routes/app_router.dart';
 import 'package:crypto_currency/src/services/auth/auth_service.dart';
 import 'package:crypto_currency/src/services/crypto_info_service/crypto_info_service.dart';
 import 'package:crypto_currency/src/services/firestore/firestore_service.dart';
+import 'package:crypto_currency/src/services/sqLite/sqlite_service.dart';
 import 'package:crypto_currency/src/services/storage/storage_service.dart';
 import 'package:crypto_currency/src/shared/utils/validator.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +31,16 @@ class MyApp extends StatelessWidget {
         Provider(create: (_) => Validator()),
         Provider(create: (_) => CryptoInfoService()),
         Provider(create: (_) => StorageService()),
+        Provider(create: (context) => SqLiteService.instance),
         ChangeNotifierProvider(
           create: (context) => LoginController(
             context.read(),
             context.read(),
           ),
         ),
-        Provider(create: (context) => CryptoRepository(context.read())),
+        Provider(
+            create: (context) =>
+                CryptoRepository(context.read(), context.read())),
         ChangeNotifierProvider(
           create: (context) => AllCryptoController(
             context.read(),
@@ -47,7 +51,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => BuyCryptoPageController(context.read()),
         ),
-        Provider(create: (context) => AccountRepository()),
+        Provider(create: (context) => AccountRepository(context.read())),
         ChangeNotifierProvider(
           create: (context) =>
               AccountController(context.read(), context.read()),

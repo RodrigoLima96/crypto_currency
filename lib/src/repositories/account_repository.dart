@@ -1,10 +1,16 @@
+import 'package:sqflite/sqlite_api.dart';
 import 'package:crypto_currency/src/models/crypto.dart';
 import 'package:crypto_currency/src/services/sqLite/sqlite_service.dart';
-import 'package:sqflite/sqlite_api.dart';
 
 class AccountRepository {
+  final SqLiteService _sqLiteService;
+
+  AccountRepository(
+    this._sqLiteService,
+  );
+
   getBalance() async {
-    Database db = await SqLiteService.instance.database;
+    Database db = await _sqLiteService.database;
 
     List account = await db.query('account', limit: 1);
     if (account.isNotEmpty) {
@@ -15,13 +21,13 @@ class AccountRepository {
   }
 
   getWallet() async {
-    Database db = await SqLiteService.instance.database;
+    Database db = await _sqLiteService.database;
     List positions = await db.query('wallet');
     return positions;
   }
 
   getTransactions() async {
-    Database db = await SqLiteService.instance.database;
+    Database db = await _sqLiteService.database;
     List transactions = await db
         .rawQuery('SELECT * FROM transactions ORDER BY date_operation DESC');
 
@@ -29,12 +35,12 @@ class AccountRepository {
   }
 
   setBalance(double value) async {
-    Database db = await SqLiteService.instance.database;
+    Database db = await _sqLiteService.database;
     await db.update('account', {'balance': value});
   }
 
   buyCrypto(Crypto crypto, double value, double userBalance) async {
-    Database db = await SqLiteService.instance.database;
+    Database db = await _sqLiteService.database;
 
     await db.transaction((txn) async {
       // Check if the crypto has already been purchased
@@ -81,7 +87,7 @@ class AccountRepository {
   }
 
   sellCrypto(Crypto crypto, double value, double userBalance) async {
-    Database db = await SqLiteService.instance.database;
+    Database db = await _sqLiteService.database;
     await db.transaction((txn) async {
       final walletCrypto = await txn.query(
         'wallet',

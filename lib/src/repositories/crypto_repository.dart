@@ -8,21 +8,23 @@ class CryptoRepository {
   List<Crypto> get cryptos => _cryptos;
 
   final CryptoInfoService _cryptoInfoService;
+  final SqLiteService _sqLiteService;
 
   CryptoRepository(
     this._cryptoInfoService,
+    this._sqLiteService,
   ) {
     insertCryptos();
   }
 
   checkTableEmpty() async {
-    Database db = await SqLiteService.instance.database;
+    Database db = await _sqLiteService.database;
     List result = await db.query('crypto');
     return result.isEmpty;
   }
 
   insertCryptos() async {
-    Database db = await SqLiteService.instance.database;
+    Database db = await _sqLiteService.database;
 
     if (await checkTableEmpty()) {
       final List<dynamic> cryptos = await _cryptoInfoService.getCryptoList();
@@ -53,7 +55,7 @@ class CryptoRepository {
   }
 
   readCryptosTable() async {
-    Database db = await SqLiteService.instance.database;
+    Database db = await _sqLiteService.database;
     List resultados = await db.query('crypto');
 
     _cryptos = resultados.map((row) {
@@ -79,7 +81,7 @@ class CryptoRepository {
   refreshPrices(List<Crypto> cryptos) async {
     final List<dynamic> newPrices = await _cryptoInfoService.getCryptoList();
 
-    Database db = await SqLiteService.instance.database;
+    Database db = await _sqLiteService.database;
     Batch batch = db.batch();
 
     for (var old in cryptos) {
