@@ -1,0 +1,1 @@
+export './cryptos_page.dart';
