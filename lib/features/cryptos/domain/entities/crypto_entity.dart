@@ -5,7 +5,7 @@ class CryptoEntity extends Equatable {
   final String icon;
   final String name;
   final String symbol;
-  final DateTime timeStamp;
+  final String timeStamp;
   final double price;
   final double changeHour;
   final double changeDay;
