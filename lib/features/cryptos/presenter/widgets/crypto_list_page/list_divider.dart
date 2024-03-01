@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/utils.dart';
+import '../../../../../core/utils/utils.dart';
 
 class ListDivider extends StatelessWidget {
   const ListDivider({super.key});

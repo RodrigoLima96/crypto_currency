@@ -1,5 +1,7 @@
-import '../../../../core/utils/utils.dart';
-import '../../domain/entities/entities.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../../../core/utils/utils.dart';
+import '../../../domain/entities/entities.dart';
 import 'package:flutter/material.dart';
 
 class CryptoTile extends StatelessWidget {
@@ -11,19 +13,19 @@ class CryptoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(crypto.name,
-          style: const TextStyle(
-              color: whiteColor, fontWeight: FontWeight.w600)),
+          style:
+              const TextStyle(color: whiteColor, fontWeight: FontWeight.w600)),
       subtitle: Text(crypto.symbol,
-          style: const TextStyle(
-              color: whiteColor, fontWeight: FontWeight.bold)),
+          style:
+              const TextStyle(color: whiteColor, fontWeight: FontWeight.bold)),
       leading: crypto.icon != ''
           ? Image.network(crypto.icon, width: 50)
           : const SizedBox(),
-      trailing: Text('${crypto.price} USD',
+      trailing: Text(price.format(crypto.price),
           style: const TextStyle(
               color: greyColor, fontWeight: FontWeight.bold, fontSize: 13)),
       onTap: () {
-        debugPrint(crypto.name);
+        Modular.to.pushNamed('/crypto', arguments: crypto);
       },
     );
   }

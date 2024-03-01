@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/widgets/widgets.dart';
-import '../../cryptos/presenter/widgets/widgets.dart';
+import '../../../../core/widgets/widgets.dart';
+import '../widgets/widgets.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class CryptoListPage extends StatelessWidget {
+  const CryptoListPage({super.key});
 
   @override
   Widget build(BuildContext context) {

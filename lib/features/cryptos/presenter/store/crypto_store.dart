@@ -21,14 +21,14 @@ abstract class _CryptoStoreBase with Store {
       final result = await usecase();
       result.fold(
         (failure) {
-          print('Error');
+          throw Error();
         },
         (list) {
           cryptosList = List.from(list);
         },
       );
     } catch (e) {
-      print('Error: $e');
+      throw Error();
     }
   }
 }
