@@ -1,10 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
 
+import '../home/pages/pages.dart';
 import 'data/datasources/datasources.dart';
 import 'data/repositories/repositories.dart';
 import 'domain/usecases/usecases.dart';
-import 'presenter/pages/pages.dart';
 import 'presenter/store/store.dart';
 
 class CryptosModule extends Module {
@@ -19,6 +19,6 @@ class CryptosModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, __) => const CryptosPage()),
+    ChildRoute('/', child: (_, __) => const HomePage()),
   ];
 }
