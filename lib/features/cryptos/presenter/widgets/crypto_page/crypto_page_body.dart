@@ -1,9 +1,8 @@
-import 'package:crypto_currency/features/cryptos/presenter/widgets/crypto_page/crypto_page.dart';
-
-import '../../../domain/entities/entities.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/utils.dart';
+import '../../../domain/entities/entities.dart';
+import '../widgets.dart';
 
 class CryptoPageBody extends StatelessWidget {
   final CryptoEntity cryptoEntity;
@@ -14,13 +13,14 @@ class CryptoPageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: backgroundColor,
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 30),
       child: Column(
         children: [
           PriceAndImage(
             cryptoPrice: cryptoEntity.price,
             image: cryptoEntity.icon,
           ),
+          const CryptoChart(),
         ],
       ),
     );

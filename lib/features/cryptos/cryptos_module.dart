@@ -16,6 +16,7 @@ class CryptosModule extends Module {
     Bind.lazySingleton((i) => CryptoRepository(datasource: i())),
     Bind.lazySingleton((i) => CryptoDatasourceImpl(client: i())),
     Bind.lazySingleton((i) => CryptoStore(usecase: i())),
+    Bind.lazySingleton((i) => ChartStore()),
   ];
 
   @override
