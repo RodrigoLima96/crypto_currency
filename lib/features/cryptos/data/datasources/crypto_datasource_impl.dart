@@ -27,7 +27,6 @@ class CryptoDatasourceImpl implements ICryptoDatasource {
   @override
   Future<List<Map<String, dynamic>>> getCryptoPrices(
       {required String cryptoId}) async {
-    cryptoId = '5b71fc48-3dd3-540c-809b-f8c94d0e68b5';
     final response = await client.get(CryptoEndpoint.getCryptoPrices(
       cryptoId: cryptoId,
       baseCurrency: 'USD',

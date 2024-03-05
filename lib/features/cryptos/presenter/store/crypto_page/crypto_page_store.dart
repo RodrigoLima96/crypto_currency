@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../core/utils/utils.dart';
@@ -16,11 +16,10 @@ abstract class _CryptoPageStoreBase with Store {
 
   @observable
   String cryptoName = '';
+  String currentCryptoId = '';
 
   @observable
   Period period = Period.hour;
-
-  List<Color> colors = [const Color(0xFF3F51B5)];
 
   @observable
   bool loaded = false;
@@ -35,6 +34,11 @@ abstract class _CryptoPageStoreBase with Store {
   @observable
   List<FlSpot> chartData = [];
 
+  @observable
+  List<Map<String, dynamic>> historic = [];
+
+  List allData = [];
+
   _CryptoPageStoreBase({required this.usecase});
 
   @action
@@ -48,44 +52,57 @@ abstract class _CryptoPageStoreBase with Store {
   }
 
   @action
-  Future<void> getCryptoPrices({required String cryptoId}) async {
-    try {
-      final result = await usecase(cryptoId: cryptoId);
-      print(result);
-    } catch (e) {
-      throw Error();
+  getDate(int index) {
+    DateTime date = allData[index][1];
+    if (period != Period.year && period != Period.all) {
+      return DateFormat('dd/MM - hh:mm').format(date);
+    } else {
+      return DateFormat('dd/MM/y').format(date);
     }
   }
 
-  // @action
-  // setData(String cryptoId) async {
-  //   loaded = false;
-  //   chartData = [];
+  @action
+  Future<void> getCryptoPrices({required String cryptoId}) async {
+    loaded = false;
+    chartData = [];
+    currentCryptoId = cryptoId;
 
-  //   historic = await getHistoricPrices(cryptoId);
+    try {
+      final result = await usecase(cryptoId: cryptoId);
+      result.fold(
+        (failure) {
+          throw Error();
+        },
+        (historicData) {
+          historic = historicData;
+        },
+      );
+    } catch (e) {
+      throw Error();
+    }
 
-  //   allData = historic[period.index]['prices'];
-  //   allData = allData.reversed.map((item) {
-  //     double preco = double.parse(item[0]);
-  //     int time = int.parse(item[1].toString() + '000');
-  //     return [preco, DateTime.fromMillisecondsSinceEpoch(time)];
-  //   }).toList();
+    allData = historic[period.index]['prices'];
+    allData = allData.reversed.map((item) {
+      double preco = double.parse(item[0]);
+      int time = int.parse('${item[1]}000');
+      return [preco, DateTime.fromMillisecondsSinceEpoch(time)];
+    }).toList();
 
-  //   maxX = allData.length.toDouble();
-  //   maxY = 0;
-  //   minY = double.infinity;
+    maxX = allData.length.toDouble();
+    maxY = 0;
+    minY = double.infinity;
 
-  //   for (var item in allData) {
-  //     maxY = item[0] > maxY ? item[0] : maxY;
-  //     minY = item[0] < minY ? item[0] : minY;
-  //   }
+    for (var item in allData) {
+      maxY = item[0] > maxY ? item[0] : maxY;
+      minY = item[0] < minY ? item[0] : minY;
+    }
 
-  //   for (var i = 0; i < allData.length; i++) {
-  //     chartData.add(FlSpot(
-  //       i.toDouble(),
-  //       allData[i][0],
-  //     ));
-  //   }
-  //   loaded.value = true;
-  // }
+    for (var i = 0; i < allData.length; i++) {
+      chartData.add(FlSpot(
+        i.toDouble(),
+        allData[i][0],
+      ));
+    }
+    loaded = true;
+  }
 }

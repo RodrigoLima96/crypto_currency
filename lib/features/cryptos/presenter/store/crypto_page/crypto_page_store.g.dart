@@ -41,6 +41,102 @@ mixin _$CryptoPageStore on _CryptoPageStoreBase, Store {
     });
   }
 
+  late final _$loadedAtom =
+      Atom(name: '_CryptoPageStoreBase.loaded', context: context);
+
+  @override
+  bool get loaded {
+    _$loadedAtom.reportRead();
+    return super.loaded;
+  }
+
+  @override
+  set loaded(bool value) {
+    _$loadedAtom.reportWrite(value, super.loaded, () {
+      super.loaded = value;
+    });
+  }
+
+  late final _$maxXAtom =
+      Atom(name: '_CryptoPageStoreBase.maxX', context: context);
+
+  @override
+  double get maxX {
+    _$maxXAtom.reportRead();
+    return super.maxX;
+  }
+
+  @override
+  set maxX(double value) {
+    _$maxXAtom.reportWrite(value, super.maxX, () {
+      super.maxX = value;
+    });
+  }
+
+  late final _$maxYAtom =
+      Atom(name: '_CryptoPageStoreBase.maxY', context: context);
+
+  @override
+  double get maxY {
+    _$maxYAtom.reportRead();
+    return super.maxY;
+  }
+
+  @override
+  set maxY(double value) {
+    _$maxYAtom.reportWrite(value, super.maxY, () {
+      super.maxY = value;
+    });
+  }
+
+  late final _$minYAtom =
+      Atom(name: '_CryptoPageStoreBase.minY', context: context);
+
+  @override
+  double get minY {
+    _$minYAtom.reportRead();
+    return super.minY;
+  }
+
+  @override
+  set minY(double value) {
+    _$minYAtom.reportWrite(value, super.minY, () {
+      super.minY = value;
+    });
+  }
+
+  late final _$chartDataAtom =
+      Atom(name: '_CryptoPageStoreBase.chartData', context: context);
+
+  @override
+  List<FlSpot> get chartData {
+    _$chartDataAtom.reportRead();
+    return super.chartData;
+  }
+
+  @override
+  set chartData(List<FlSpot> value) {
+    _$chartDataAtom.reportWrite(value, super.chartData, () {
+      super.chartData = value;
+    });
+  }
+
+  late final _$historicAtom =
+      Atom(name: '_CryptoPageStoreBase.historic', context: context);
+
+  @override
+  List<Map<String, dynamic>> get historic {
+    _$historicAtom.reportRead();
+    return super.historic;
+  }
+
+  @override
+  set historic(List<Map<String, dynamic>> value) {
+    _$historicAtom.reportWrite(value, super.historic, () {
+      super.historic = value;
+    });
+  }
+
   late final _$loadCryptoInfoAsyncAction =
       AsyncAction('_CryptoPageStoreBase.loadCryptoInfo', context: context);
 
@@ -48,6 +144,15 @@ mixin _$CryptoPageStore on _CryptoPageStoreBase, Store {
   Future<void> loadCryptoInfo({required String name}) {
     return _$loadCryptoInfoAsyncAction
         .run(() => super.loadCryptoInfo(name: name));
+  }
+
+  late final _$getCryptoPricesAsyncAction =
+      AsyncAction('_CryptoPageStoreBase.getCryptoPrices', context: context);
+
+  @override
+  Future<void> getCryptoPrices({required String cryptoId}) {
+    return _$getCryptoPricesAsyncAction
+        .run(() => super.getCryptoPrices(cryptoId: cryptoId));
   }
 
   late final _$_CryptoPageStoreBaseActionController =
@@ -65,10 +170,27 @@ mixin _$CryptoPageStore on _CryptoPageStoreBase, Store {
   }
 
   @override
+  dynamic getDate(int index) {
+    final _$actionInfo = _$_CryptoPageStoreBaseActionController.startAction(
+        name: '_CryptoPageStoreBase.getDate');
+    try {
+      return super.getDate(index);
+    } finally {
+      _$_CryptoPageStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 cryptoName: ${cryptoName},
-period: ${period}
+period: ${period},
+loaded: ${loaded},
+maxX: ${maxX},
+maxY: ${maxY},
+minY: ${minY},
+chartData: ${chartData},
+historic: ${historic}
     ''';
   }
 }

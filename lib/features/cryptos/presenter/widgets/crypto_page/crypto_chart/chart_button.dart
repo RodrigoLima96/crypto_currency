@@ -18,10 +18,13 @@ class ChartButton extends StatelessWidget {
       builder: (_) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6),
         child: OutlinedButton(
-          onPressed: () => chartStore.changePeriod(p),
+          onPressed: () {
+            chartStore.changePeriod(p);
+            chartStore.getCryptoPrices(cryptoId: chartStore.currentCryptoId);
+          },
           style: (chartStore.period != p)
               ? _inactiveButtonStyle()
-              : _activeButtonStyle(chartStore.colors[0]),
+              : _activeButtonStyle(lineChartColors[0]),
           child: Text(label),
         ),
       ),
