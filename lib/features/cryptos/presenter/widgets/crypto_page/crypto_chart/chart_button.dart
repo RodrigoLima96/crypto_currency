@@ -20,7 +20,7 @@ class ChartButton extends StatelessWidget {
         child: OutlinedButton(
           onPressed: () {
             chartStore.changePeriod(p);
-            chartStore.getCryptoPrices(cryptoId: chartStore.currentCryptoId);
+            chartStore.getCryptoPrices(cryptoId: chartStore.currentCryptoId, firstLoad: false);
           },
           style: (chartStore.period != p)
               ? _inactiveButtonStyle()

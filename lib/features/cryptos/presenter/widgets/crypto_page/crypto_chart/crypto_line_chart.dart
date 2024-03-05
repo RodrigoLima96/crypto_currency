@@ -22,7 +22,7 @@ class _CryptoLineChartState extends State<CryptoLineChart> {
   @override
   void initState() {
     super.initState();
-    cryptoPageStore.getCryptoPrices(cryptoId: widget.cryptoId);
+    cryptoPageStore.getCryptoPrices(cryptoId: widget.cryptoId, firstLoad: true);
   }
 
   @override

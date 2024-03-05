@@ -150,9 +150,10 @@ mixin _$CryptoPageStore on _CryptoPageStoreBase, Store {
       AsyncAction('_CryptoPageStoreBase.getCryptoPrices', context: context);
 
   @override
-  Future<void> getCryptoPrices({required String cryptoId}) {
-    return _$getCryptoPricesAsyncAction
-        .run(() => super.getCryptoPrices(cryptoId: cryptoId));
+  Future<void> getCryptoPrices(
+      {required String cryptoId, required bool firstLoad}) {
+    return _$getCryptoPricesAsyncAction.run(
+        () => super.getCryptoPrices(cryptoId: cryptoId, firstLoad: firstLoad));
   }
 
   late final _$_CryptoPageStoreBaseActionController =

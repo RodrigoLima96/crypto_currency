@@ -62,23 +62,26 @@ abstract class _CryptoPageStoreBase with Store {
   }
 
   @action
-  Future<void> getCryptoPrices({required String cryptoId}) async {
+  Future<void> getCryptoPrices(
+      {required String cryptoId, required bool firstLoad}) async {
     loaded = false;
     chartData = [];
     currentCryptoId = cryptoId;
 
-    try {
-      final result = await usecase(cryptoId: cryptoId);
-      result.fold(
-        (failure) {
-          throw Error();
-        },
-        (historicData) {
-          historic = historicData;
-        },
-      );
-    } catch (e) {
-      throw Error();
+    if (firstLoad) {
+      try {
+        final result = await usecase(cryptoId: cryptoId);
+        result.fold(
+          (failure) {
+            throw Error();
+          },
+          (historicData) {
+            historic = historicData;
+          },
+        );
+      } catch (e) {
+        throw Error();
+      }
     }
 
     allData = historic[period.index]['prices'];
