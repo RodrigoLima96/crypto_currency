@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'crypto_store.dart';
+part of 'crypto_list_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'crypto_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$CryptoStore on _CryptoStoreBase, Store {
+mixin _$CryptoListStore on _CryptoListStoreBase, Store {
   late final _$cryptosListAtom =
-      Atom(name: '_CryptoStoreBase.cryptosList', context: context);
+      Atom(name: '_CryptoListStoreBase.cryptosList', context: context);
 
   @override
   List<CryptoEntity> get cryptosList {
@@ -26,7 +26,7 @@ mixin _$CryptoStore on _CryptoStoreBase, Store {
   }
 
   late final _$getCryptosAsyncAction =
-      AsyncAction('_CryptoStoreBase.getCryptos', context: context);
+      AsyncAction('_CryptoListStoreBase.getCryptos', context: context);
 
   @override
   Future<void> getCryptos() {

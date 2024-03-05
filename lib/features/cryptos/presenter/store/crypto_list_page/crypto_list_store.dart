@@ -4,16 +4,16 @@ import 'package:crypto_currency/features/cryptos/domain/entities/entities.dart';
 import 'package:crypto_currency/features/cryptos/domain/usecases/usecases.dart';
 import 'package:mobx/mobx.dart';
 
-part 'crypto_store.g.dart';
+part 'crypto_list_store.g.dart';
 
-class CryptoStore = _CryptoStoreBase with _$CryptoStore;
+class CryptoListStore = _CryptoListStoreBase with _$CryptoListStore;
 
-abstract class _CryptoStoreBase with Store {
+abstract class _CryptoListStoreBase with Store {
   @observable
   List<CryptoEntity> cryptosList = [];
-  final GetCryptoUsecase usecase;
+  final GetCryptoListUsecase usecase;
 
-  _CryptoStoreBase({required this.usecase});
+  _CryptoListStoreBase({required this.usecase});
 
   @action
   Future<void> getCryptos() async {

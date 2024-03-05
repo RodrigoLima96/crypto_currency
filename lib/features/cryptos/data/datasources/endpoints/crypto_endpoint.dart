@@ -4,4 +4,13 @@ class CryptoEndpoint {
       'base': baseCurrency,
     });
   }
+
+  static Uri getCryptoPrices({
+    required String cryptoId,
+    required String baseCurrency,
+  }) {
+    return Uri.https('api.coinbase.com', '/v2/assets/prices/$cryptoId', {
+      'base': baseCurrency,
+    });
+  }
 }

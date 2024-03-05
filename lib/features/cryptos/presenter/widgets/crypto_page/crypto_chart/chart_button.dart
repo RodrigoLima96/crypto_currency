@@ -13,8 +13,7 @@ class ChartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chartStore = Modular.get<ChartStore>();
-
+    final chartStore = Modular.get<CryptoPageStore>();
     return Observer(
       builder: (_) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6),

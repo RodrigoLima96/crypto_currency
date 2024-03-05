@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chart_store.dart';
+part of 'crypto_page_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'chart_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$ChartStore on _ChartStoreBase, Store {
+mixin _$CryptoPageStore on _CryptoPageStoreBase, Store {
   late final _$cryptoNameAtom =
-      Atom(name: '_ChartStoreBase.cryptoName', context: context);
+      Atom(name: '_CryptoPageStoreBase.cryptoName', context: context);
 
   @override
   String get cryptoName {
@@ -26,7 +26,7 @@ mixin _$ChartStore on _ChartStoreBase, Store {
   }
 
   late final _$periodAtom =
-      Atom(name: '_ChartStoreBase.period', context: context);
+      Atom(name: '_CryptoPageStoreBase.period', context: context);
 
   @override
   Period get period {
@@ -42,7 +42,7 @@ mixin _$ChartStore on _ChartStoreBase, Store {
   }
 
   late final _$loadCryptoInfoAsyncAction =
-      AsyncAction('_ChartStoreBase.loadCryptoInfo', context: context);
+      AsyncAction('_CryptoPageStoreBase.loadCryptoInfo', context: context);
 
   @override
   Future<void> loadCryptoInfo({required String name}) {
@@ -50,17 +50,17 @@ mixin _$ChartStore on _ChartStoreBase, Store {
         .run(() => super.loadCryptoInfo(name: name));
   }
 
-  late final _$_ChartStoreBaseActionController =
-      ActionController(name: '_ChartStoreBase', context: context);
+  late final _$_CryptoPageStoreBaseActionController =
+      ActionController(name: '_CryptoPageStoreBase', context: context);
 
   @override
   void changePeriod(Period p) {
-    final _$actionInfo = _$_ChartStoreBaseActionController.startAction(
-        name: '_ChartStoreBase.changePeriod');
+    final _$actionInfo = _$_CryptoPageStoreBaseActionController.startAction(
+        name: '_CryptoPageStoreBase.changePeriod');
     try {
       return super.changePeriod(p);
     } finally {
-      _$_ChartStoreBaseActionController.endAction(_$actionInfo);
+      _$_CryptoPageStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

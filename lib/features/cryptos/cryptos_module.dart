@@ -12,11 +12,12 @@ class CryptosModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.lazySingleton((i) => http.Client()),
-    Bind.lazySingleton((i) => GetCryptoUsecase(repository: i())),
+    Bind.lazySingleton((i) => GetCryptoListUsecase(repository: i())),
+    Bind.lazySingleton((i) => GetCryptoPricesUsecase(repository: i())),
     Bind.lazySingleton((i) => CryptoRepository(datasource: i())),
     Bind.lazySingleton((i) => CryptoDatasourceImpl(client: i())),
-    Bind.lazySingleton((i) => CryptoStore(usecase: i())),
-    Bind.lazySingleton((i) => ChartStore()),
+    Bind.lazySingleton((i) => CryptoListStore(usecase: i())),
+    Bind.lazySingleton((i) => CryptoPageStore(usecase: i())),
   ];
 
   @override

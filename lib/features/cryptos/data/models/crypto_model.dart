@@ -24,8 +24,8 @@ class CryptoModel extends CryptoEntity {
         name: json['name'] ?? '',
         symbol: json['symbol'] ?? '',
         timeStamp: json['latest_price']['timestamp'] ?? '',
-        price: double.parse( json['latest']),
-        changeHour:json['latest_price']['percent_change']['hour'] ?? 0.0,
+        price: double.parse(json['latest']),
+        changeHour: json['latest_price']['percent_change']['hour'] ?? 0.0,
         changeDay: json['latest_price']['percent_change']['day'] ?? 0.0,
         changeWeek: json['latest_price']['percent_change']['week'] ?? 0.0,
         changeMonth: json['latest_price']['percent_change']['month'] ?? 0.0,
@@ -54,5 +54,21 @@ class CryptoModel extends CryptoEntity {
     List<dynamic> dataList = jsonMap['data'];
 
     return dataList.map((item) => CryptoModel.fromJson(item)).toList();
+  }
+
+  static List<Map<String, dynamic>> getCryptoPrices({required String data}) {
+    List<Map<String, dynamic>> prices = [];
+
+    var jsonMap = json.decode(data);
+    final Map<String, dynamic> crypto = jsonMap['data']['prices'];
+
+    prices.add(crypto['hour']);
+    prices.add(crypto['day']);
+    prices.add(crypto['week']);
+    prices.add(crypto['month']);
+    prices.add(crypto['year']);
+    prices.add(crypto['all']);
+
+    return prices;
   }
 }

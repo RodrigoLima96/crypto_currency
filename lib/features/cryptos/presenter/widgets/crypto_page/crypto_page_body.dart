@@ -20,7 +20,7 @@ class CryptoPageBody extends StatelessWidget {
             cryptoPrice: cryptoEntity.price,
             image: cryptoEntity.icon,
           ),
-          const CryptoChart(),
+          CryptoChart(cryptoId: cryptoEntity.id),
         ],
       ),
     );

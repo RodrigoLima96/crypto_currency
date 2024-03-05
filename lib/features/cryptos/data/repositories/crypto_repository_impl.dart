@@ -11,9 +11,19 @@ class CryptoRepository implements ICryptoRepository {
   const CryptoRepository({required this.datasource});
 
   @override
-  Future<Either<Failure, List<CryptoEntity>>> getCryptos() async {
+  Future<Either<Failure, List<CryptoEntity>>> getCryptoList() async {
     try {
       final result = await datasource.getCryptos();
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Map<String, dynamic>>>> getCryptoPrices({required String cryptoId}) async {
+    try {
+      final result = await datasource.getCryptoPrices(cryptoId: cryptoId);
       return Right(result);
     } on ServerException {
       return Left(ServerFailure());
