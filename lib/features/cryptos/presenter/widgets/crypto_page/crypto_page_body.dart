@@ -11,17 +11,22 @@ class CryptoPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: backgroundColor,
-      padding: const EdgeInsets.only(top: 30),
-      child: Column(
-        children: [
-          PriceAndImage(
-            cryptoPrice: cryptoEntity.price,
-            image: cryptoEntity.icon,
-          ),
-          CryptoChart(cryptoId: cryptoEntity.id),
-        ],
+    return SingleChildScrollView(
+      child: Container(
+        color: backgroundColor,
+        padding: const EdgeInsets.only(top: 30),
+        height: 1000,
+        child: Column(
+          children: [
+            PriceAndImage(
+              cryptoPrice: cryptoEntity.price,
+              image: cryptoEntity.icon,
+            ),
+            CryptoChart(cryptoId: cryptoEntity.id),
+            CryptoAmount(symbol: cryptoEntity.symbol),
+            BuyCryptoInputText(cryptoPrice: cryptoEntity.price),
+          ],
+        ),
       ),
     );
   }

@@ -25,6 +25,22 @@ mixin _$CryptoPageStore on _CryptoPageStoreBase, Store {
     });
   }
 
+  late final _$cryptoAmountAtom =
+      Atom(name: '_CryptoPageStoreBase.cryptoAmount', context: context);
+
+  @override
+  double get cryptoAmount {
+    _$cryptoAmountAtom.reportRead();
+    return super.cryptoAmount;
+  }
+
+  @override
+  set cryptoAmount(double value) {
+    _$cryptoAmountAtom.reportWrite(value, super.cryptoAmount, () {
+      super.cryptoAmount = value;
+    });
+  }
+
   late final _$periodAtom =
       Atom(name: '_CryptoPageStoreBase.period', context: context);
 
@@ -182,9 +198,21 @@ mixin _$CryptoPageStore on _CryptoPageStoreBase, Store {
   }
 
   @override
+  dynamic changeAmount({required String value, required double price}) {
+    final _$actionInfo = _$_CryptoPageStoreBaseActionController.startAction(
+        name: '_CryptoPageStoreBase.changeAmount');
+    try {
+      return super.changeAmount(value: value, price: price);
+    } finally {
+      _$_CryptoPageStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 cryptoName: ${cryptoName},
+cryptoAmount: ${cryptoAmount},
 period: ${period},
 loaded: ${loaded},
 maxX: ${maxX},

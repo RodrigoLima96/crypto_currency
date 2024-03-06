@@ -19,6 +19,9 @@ abstract class _CryptoPageStoreBase with Store {
   String currentCryptoId = '';
 
   @observable
+  double cryptoAmount = 0;
+
+  @observable
   Period period = Period.hour;
 
   @observable
@@ -107,5 +110,10 @@ abstract class _CryptoPageStoreBase with Store {
       ));
     }
     loaded = true;
+  }
+
+  @action
+  changeAmount({required String value, required double price}) {
+    cryptoAmount = (value.isEmpty) ? 0 : double.parse(value) / price;
   }
 }
