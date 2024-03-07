@@ -25,6 +25,8 @@ class CryptoPageBody extends StatelessWidget {
             CryptoChart(cryptoId: cryptoEntity.id),
             CryptoAmount(symbol: cryptoEntity.symbol),
             BuyCryptoInputText(cryptoPrice: cryptoEntity.price),
+            BuyCryptoButton(
+                cryptoEntity: cryptoEntity, purchaseTransaction: true),
           ],
         ),
       ),
