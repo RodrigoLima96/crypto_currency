@@ -6,6 +6,5 @@ import '../entities/entities.dart';
 abstract class IWalletRepository {
   Future<Either<Failure, List<WalletEntity>>> getWallet();
 
-  Future<Either<Failure, void>> tradeCrypto({required WalletEntity walletEntity, required bool buyTransaction});
-
+  Future<Either<Failure, void>> tradeCrypto({required TradeEntity tradeEntity});
 }

@@ -10,12 +10,10 @@ class TradeCryptoUsecase {
   const TradeCryptoUsecase({required this.repository});
 
   Future<Either<Failure, void>> call({
-    required WalletEntity walletEntity,
-    required bool buyTransaction,
+    required TradeEntity tradeEntity,
   }) async {
     return await repository.tradeCrypto(
-      walletEntity: walletEntity,
-      buyTransaction: buyTransaction,
+      tradeEntity: tradeEntity,
     );
   }
 }
