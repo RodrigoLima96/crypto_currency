@@ -16,9 +16,10 @@ class CreateDatabaseService {
     }
   }
 
-  void _onCreate(Database db, int version) async {
+  void _onCreate(db, version) async {
     await db.execute(_crypto);
     await db.execute(_wallet);
+    // await db.execute(_initialWalletData);
   }
 
   String get _crypto => '''
@@ -44,4 +45,16 @@ class CreateDatabaseService {
       amount REAL
     );
   ''';
+
+//   String get _initialWalletData => '''
+//   INSERT INTO wallet (
+//     cryptoId,
+//     amount
+//   )
+
+//   VALUES (
+//     'BTC',
+//     123
+//   );
+// ''';
 }

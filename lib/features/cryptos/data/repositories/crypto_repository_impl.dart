@@ -5,10 +5,10 @@ import '../../domain/entities/crypto_entity.dart';
 import '../../domain/repositories/repositories.dart';
 import '../datasources/datasources.dart';
 
-class CryptoRepository implements ICryptoRepository {
+class CryptoRepositoryImpl implements ICryptoRepository {
   final ICryptoDatasource datasource;
 
-  const CryptoRepository({required this.datasource});
+  const CryptoRepositoryImpl({required this.datasource});
 
   @override
   Future<Either<Failure, List<CryptoEntity>>> getCryptoList() async {

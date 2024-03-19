@@ -1,3 +1,4 @@
+import 'package:crypto_currency/features/wallet/wallet_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,7 +15,7 @@ class CryptosModule extends Module {
     Bind.lazySingleton((i) => http.Client()),
     Bind.lazySingleton((i) => GetCryptoListUsecase(repository: i())),
     Bind.lazySingleton((i) => GetCryptoPricesUsecase(repository: i())),
-    Bind.lazySingleton((i) => CryptoRepository(datasource: i())),
+    Bind.lazySingleton((i) => CryptoRepositoryImpl(datasource: i())),
     Bind.lazySingleton((i) => CryptoDatasourceImpl(client: i())),
     Bind.lazySingleton((i) => CryptoListStore(usecase: i())),
     Bind.lazySingleton((i) => CryptoPageStore(usecase: i())),
@@ -28,4 +29,7 @@ class CryptosModule extends Module {
       child: (_, args) => CryptoPage(cryptoEntity: args.data as CryptoEntity),
     ),
   ];
+  
+  @override
+  List<Module> get imports => [WalletModule()];
 }

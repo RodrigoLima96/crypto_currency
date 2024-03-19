@@ -2,7 +2,9 @@
 
 import 'package:crypto_currency/core/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../wallet/presenter/store/store.dart';
 import '../../../domain/entities/entities.dart';
 
 class BuyCryptoButton extends StatelessWidget {
@@ -17,23 +19,30 @@ class BuyCryptoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final walletStore = Modular.get<WalletStore>();
+
     return Container(
       alignment: Alignment.bottomCenter,
       margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
       child: ElevatedButton(
-        style:  ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.green.shade300)),
+        style: ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(Colors.green.shade300)),
         onPressed: () async {
           // to do
+          await walletStore.getWallet();
         },
-        child:  Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.check, color: whiteColor),
             Padding(
               padding: const EdgeInsets.only(left: 5, top: 15, bottom: 15),
               child: Text(
-                 purchaseTransaction ? "Buy" : 'Sell',
-                style: const TextStyle(fontSize: 20, color: whiteColor, fontWeight: FontWeight.bold),
+                purchaseTransaction ? "Buy" : 'Sell',
+                style: const TextStyle(
+                    fontSize: 20,
+                    color: whiteColor,
+                    fontWeight: FontWeight.bold),
               ),
             )
           ],

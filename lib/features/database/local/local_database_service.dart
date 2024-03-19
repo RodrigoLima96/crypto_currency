@@ -6,7 +6,9 @@ class LocalDatabaseService {
   LocalDatabaseService({required this.localDatabaseService});
 
   getWallet() async {
-    final result = await localDatabaseService.database.query();
-    print(result);
+    final db = await localDatabaseService.database;
+    final result = await db.query('wallet');
+    print(result[0]);
+    print(result[0]);
   }
 }
