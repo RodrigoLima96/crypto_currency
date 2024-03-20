@@ -1,14 +1,21 @@
+import 'package:sqflite/sqflite.dart';
+
 import 'local.dart';
 
 class LocalDatabaseService {
   final InitDatabaseService localDatabaseService;
+  late Database _localDatabase;
 
-  LocalDatabaseService({required this.localDatabaseService});
+  LocalDatabaseService({required this.localDatabaseService}) {
+    initDatabase();
+  }
+
+  initDatabase() async {
+    _localDatabase = await localDatabaseService.database;
+  }
 
   getWallet() async {
-    final db = await localDatabaseService.database;
-    final result = await db.query('wallet');
-    print(result[0]);
-    print(result[0]);
+    final result = await _localDatabase.query('wallet');
+    return result;
   }
 }

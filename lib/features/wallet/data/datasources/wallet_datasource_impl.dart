@@ -1,3 +1,5 @@
+import '../models/models.dart';
+
 import '../../../database/local/local.dart';
 import '../../domain/entities/trade_entity.dart';
 
@@ -13,8 +15,8 @@ class WalletDatasourceImpl implements IWalletDatasource {
   @override
   Future<List<WalletEntity>> getWallet() async {
     final result = await localDatabase.getWallet();
-    print(result);
-    throw UnimplementedError();
+    final List<WalletEntity> wallet = WalletModel.toList(result);
+    return wallet;
   }
 
   @override

@@ -1,13 +1,11 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../cryptos/domain/entities/entities.dart';
-
 class WalletEntity extends Equatable {
-  final CryptoEntity cryptoEntity;
+  final String cryptoId;
   final double amount;
 
-  const WalletEntity({required this.cryptoEntity, required this.amount});
+  const WalletEntity({required this.cryptoId, required this.amount});
 
   @override
-  List<Object?> get props => [cryptoEntity, amount];
+  List<Object?> get props => [cryptoId, amount];
 }
