@@ -19,10 +19,11 @@ class CreateDatabaseService {
   void _onCreate(db, version) async {
     await db.execute(_crypto);
     await db.execute(_wallet);
-    await db.execute(_user);
+    await db.execute(_account);
 
     await db.execute(_initialWalletData);
     await db.execute(_initialWalletData2);
+    await db.execute(_initialAccountData);
   }
 
   String get _crypto => '''
@@ -49,8 +50,8 @@ class CreateDatabaseService {
     );
   ''';
 
-  String get _user => '''
-    CREATE TABLE user (
+  String get _account => '''
+    CREATE TABLE account (
       name TEXT,
       image BLOB,
       balance REAL
@@ -78,6 +79,20 @@ class CreateDatabaseService {
   VALUES (
     'ETH',
     1232
+  );
+''';
+
+  String get _initialAccountData => '''
+  INSERT INTO account (
+    name,
+    image,
+    balance
+  )
+
+  VALUES (
+    '',
+    null,
+    10000
   );
 ''';
 }

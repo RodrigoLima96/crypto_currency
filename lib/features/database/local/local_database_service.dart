@@ -18,4 +18,9 @@ class LocalDatabaseService {
     final result = await _localDatabase.query('wallet');
     return result;
   }
+
+  getAccountData() async {
+    final result = await _localDatabase.query('account');
+    return result;
+  }
 }
