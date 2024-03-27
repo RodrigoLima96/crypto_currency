@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../../../core/errors/errors.dart';
+import '../../errors/errors.dart';
 
 class CreateDatabaseService {
   Future<Database> createDatabase() async {
@@ -90,7 +90,7 @@ class CreateDatabaseService {
   )
 
   VALUES (
-    '',
+    'Rodrigo',
     null,
     10000
   );

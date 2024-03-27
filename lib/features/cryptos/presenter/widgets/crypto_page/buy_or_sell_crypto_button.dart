@@ -6,20 +6,26 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../wallet/presenter/store/store.dart';
 import '../../../domain/entities/entities.dart';
+import '../../store/store.dart';
 
 class BuyCryptoButton extends StatelessWidget {
   final CryptoEntity cryptoEntity;
   final bool purchaseTransaction;
+  final GlobalKey<FormState> formKey;
+  final TextEditingController amountController;
 
   const BuyCryptoButton({
     Key? key,
     required this.cryptoEntity,
     required this.purchaseTransaction,
+    required this.formKey,
+    required this.amountController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final walletStore = Modular.get<WalletStore>();
+    final chartStore = Modular.get<CryptoPageStore>();
 
     return Container(
       alignment: Alignment.bottomCenter,
@@ -28,8 +34,18 @@ class BuyCryptoButton extends StatelessWidget {
         style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.green.shade300)),
         onPressed: () async {
-          // to do
-          await walletStore.getWallet();
+          if (formKey.currentState!.validate()) {
+            await walletStore.tradeCrypto(
+              crypto: cryptoEntity,
+              purchaseValue: double.parse(
+                amountController.text,
+              ),
+            );
+            await walletStore.getWallet();
+
+            amountController.text = '';
+            chartStore.clearCryptoAmount();
+          }
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

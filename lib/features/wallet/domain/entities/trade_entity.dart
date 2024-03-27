@@ -1,13 +1,17 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 class TradeEntity extends Equatable {
   final String cryptoId;
-  final double amount;
+  double cryptoAmount;
+  final double purchaseValue;
   final bool buyTransaction;
 
-  const TradeEntity({
+  TradeEntity({
     required this.cryptoId,
-    required this.amount,
+    required this.cryptoAmount,
+    required this.purchaseValue,
     required this.buyTransaction,
   });
 

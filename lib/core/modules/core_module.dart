@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../features/database/local/local.dart';
+import '../database/local/local.dart';
 
 class CoreModule extends Module {
   @override

@@ -11,6 +11,9 @@ class CryptoPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    final TextEditingController amountController = TextEditingController();
+
     return SingleChildScrollView(
       child: Container(
         color: backgroundColor,
@@ -24,9 +27,17 @@ class CryptoPageBody extends StatelessWidget {
             ),
             CryptoChart(cryptoId: cryptoEntity.id),
             CryptoAmount(symbol: cryptoEntity.symbol),
-            BuyCryptoInputText(cryptoPrice: cryptoEntity.price),
+            BuyCryptoInputText(
+              cryptoPrice: cryptoEntity.price,
+              formKey: formKey,
+              amountController: amountController,
+            ),
             BuyCryptoButton(
-                cryptoEntity: cryptoEntity, purchaseTransaction: true),
+              cryptoEntity: cryptoEntity,
+              purchaseTransaction: true,
+              formKey: formKey,
+              amountController: amountController,
+            ),
           ],
         ),
       ),

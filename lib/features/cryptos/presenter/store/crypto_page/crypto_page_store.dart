@@ -116,4 +116,9 @@ abstract class _CryptoPageStoreBase with Store {
   changeAmount({required String value, required double price}) {
     cryptoAmount = (value.isEmpty) ? 0 : double.parse(value) / price;
   }
+
+  @action
+  clearCryptoAmount() {
+    cryptoAmount = 0;
+  }
 }

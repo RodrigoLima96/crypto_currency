@@ -1,6 +1,6 @@
 import '../models/models.dart';
 
-import '../../../database/local/local.dart';
+import '../../../../core/database/local/local.dart';
 import 'datasources.dart';
 
 class AccountDatasourceImpl implements IAccountDatasource {

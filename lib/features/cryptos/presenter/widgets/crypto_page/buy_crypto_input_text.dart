@@ -2,21 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/utils/utils.dart';
+import '../../../../wallet/presenter/store/store.dart';
 import '../../store/store.dart';
 
 class BuyCryptoInputText extends StatelessWidget {
   final double cryptoPrice;
+  final GlobalKey<FormState> formKey;
+  final TextEditingController amountController;
 
   const BuyCryptoInputText({
     Key? key,
     required this.cryptoPrice,
+    required this.formKey,
+    required this.amountController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController amountController = TextEditingController();
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final chartStore = Modular.get<CryptoPageStore>();
+    final walletStore = Modular.get<WalletStore>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -44,7 +48,9 @@ class BuyCryptoInputText extends StatelessWidget {
           validator: (value) {
             if (value!.isEmpty) {
               return "Enter the amount";
-            } else if (double.parse(value) > 50) {
+            } else if (double.parse(value) < 50) {
+              return "minimum trade is 50 USD";
+            } else if (walletStore.userBalance < double.parse(value)) {
               return "insufficient balance";
             }
             return null;
